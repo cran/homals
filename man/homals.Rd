@@ -33,10 +33,11 @@
 }
 \usage{
 homals(data, sets=0, ndim=2, active=T, rank=ndim, level="NO", starplots = FALSE,
-catplots =  FALSE, trfplots =  FALSE, lossplots =  FALSE, graphplot =  FALSE,
-objplot =  FALSE, objscores =  FALSE, objlabel =  FALSE, offset =  1.20,
-eps1 =  -Inf, eps2 =  1e-6, itermax =  100, voronoi =  FALSE, save.me =  FALSE,
-demo =  FALSE , timer =  FALSE , tk = FALSE, img1, img2, img3, name)
+catplots =  FALSE, trfplots =  FALSE, lossplots =  FALSE, hullplots = FALSE, 
+spanplots = FALSE, graphplot =  FALSE, objplot =  FALSE, objscores =  FALSE,
+objlabel =  FALSE, offset =  1.20, eps1 =  -Inf, eps2 =  1e-6, itermax =  100,
+voronoi =  FALSE, saveMe =  FALSE, demo =  FALSE , timer =  FALSE , tk = FALSE,
+img1, img2, img3, name)
 }
 \arguments{
   \item{data}{data (in data-frame)}
@@ -49,6 +50,8 @@ demo =  FALSE , timer =  FALSE , tk = FALSE, img1, img2, img3, name)
   \item{catplots}{which category plots, default is none (FALSE)}
   \item{trfplots}{which transformation plots, default is none (FALSE)}
   \item{lossplots}{which loss plots, default is none (FALSE)}
+  \item{hullplots}{which hullplots, default is none (FALSE)}
+  \item{spanplots}{which spanning tree plots, default is none (FALSE)}
   \item{graphplot}{graphplot, default is no (FALSE)}
   \item{objplot}{object score plot, default is no (FALSE)}
   \item{objscores}{object scores written to file, default is no (FALSE)}
@@ -58,7 +61,7 @@ demo =  FALSE , timer =  FALSE , tk = FALSE, img1, img2, img3, name)
   \item{eps2}{iteration precision eigenvectors, default is 1e-6}
   \item{itermax}{maximum number of iterations, default is 100}
   \item{voronoi}{voronoi diagram, default is no (FALSE)}
-  \item{save.me}{do we return the results, default is no (FALSE)}
+  \item{saveMe}{do we return the results, default is no (FALSE)}
   \item{demo}{animated iteration demo, default is no (FALSE)}
   \item{timer}{time the steps of program, default is no (FALSE)}
   \item{tk}{create tk output, default is no (FALSE), used by \code{tkhomals}}

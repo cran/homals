@@ -1,0 +1,49 @@
+"body-style" "driver-protection" "passenger-protection" "structural-integrity"
+"acura integra"	     "2-door"   "no injury"         "no injury"         "better" 
+"daihatsu charade"	 "2-door"   "moderate injury"   "no injury"         "better" 
+"dodge colt"	     "wagon"    "fatal injury"      "moderate injury"   "better" 
+"eagle summit"	 	 "4-door"   "severe injury"     "moderate injury"   "much better" 
+"ford escort"		 "2-door"   "no injury"         "no injury"         "much better" 
+"ford festiva"	     "2-door"   "certain injury"    "moderate injury"   "better" 
+"honda civic"        "2-door"   "moderate injury"   "no injury"         "average" 
+"hyundai excel-2"    "2-door"   "certain injury"    "certain injury"    "better" 
+"hyundai excel-4"    "4-door"   "certain injury"    "no injury"         "better" 
+"isuzu i-mark"       "4-door"   "fatal injury"      "certain injury"    "better" 
+"mazda 323"          "2-door"   "severe injury"     "certain injury"    "much better" 
+"mazda rx-7"         "2-door"   "moderate injury"   "no injury"         "much better" 
+"mitsubishi mirage"  "4-door"   "severe injury"     "moderate injury"   "much better" 
+"mitsubishi starion  "2-door"   "certain injury"    "no injury"         "much better" 
+"nissan pulsar nx"   "2-door"   "severe injury"     "no injury"         "better" 
+"nissan sentra-4"    "4-door"   "fatal injury"      "moderate injury"   "better" 
+"nissan sentra-w"    "wagon"    "severe injury"     "no injury"         "much better" 
+"plymouth colt"      "wagon"    "fatal injury"      "moderate injury"   "better" 
+"pontiac lemans"     "2-door"   "certain injury"    "moderate injury"   "better" 
+"subaru justy"       "2-door"   "no injury"         "no injury"         "average" 
+"toyota celica"      "2-door"   "no injury"         "no injury"         "much better" 
+"toyota tercel"      "2-door"   "certain injury"    "no injury"         "much better" 
+"volkswagon golf"    "4-door"   "certain injury"    "no injury"         "better" 
+"yugo gv"            "2-door"   "fatal injury"      "no injury"         "average" 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
