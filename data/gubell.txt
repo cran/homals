@@ -1,0 +1,8 @@
+"intensity of interation" "frequency of interaction" "feeling of belonging" "physical proximity" "formality of relationship"
+"Crowd" "slight" "slight or non-recurring" "none" "close" "formal"
+"Modern Community, neighborhood" "low" "infrequent" "slight" "close" "formal"
+"Public" "slight" "slight or non-recurring" "slight" "distant" "no relationship"
+"Primary Group" "high" "frequent" "high" "close" "informal"
+"Mob" "high" "slight or non-recurring" "high" "close" "informal"
+"Secondary Group" "moderate" "infrequent" "variable" "distant" "formal"
+"Audience" "low" "slight or non-recurring" "slight" "close" "formal"
