@@ -580,32 +580,32 @@ tkhomQuit <- function() {
 homals<-function(data,                 # data (in data-frame)
                   sets=0,              # list of vectors of indices
                   ndim=2,              # dimensionality (default 2)
-                  active=T,            # which variables are active (single T means all)
+                  active=TRUE,         # which variables are active (single T means all)
                   rank=ndim,           # which quantification ranks (default all p)
                   level="NO",          # which quantification levels (default all nominal)            
-                  starplots=F,         # which starplots (default none)
-                  catplots=F,          # which category plots (default none)
-                  trfplots=F,          # which transformation plots (default none)
-                  lossplots=F,         # which loss plots (default none)
-                  hullplots=F,		   # which hullplots (default none)
-                  spanplots=F,		   # which spanning tree plots (default none)
-                  graphplot=F,         # graphplot (default no)
-                  objplot=F,           # object score plot (default no)
-                  objscores=F,         # object scores written to file (default no)
-                  objlabel=F,          # object score plot labeled (default no)
+                  starplots=FALSE,     # which starplots (default none)
+                  catplots=FALSE,      # which category plots (default none)
+                  trfplots=FALSE,      # which transformation plots (default none)
+                  lossplots=FALSE,     # which loss plots (default none)
+                  hullplots=FALSE,     # which hullplots (default none)
+                  spanplots=FALSE,     # which spanning tree plots (default none)
+                  graphplot=FALSE,     # graphplot (default no)
+                  objplot=FALSE,       # object score plot (default no)
+                  objscores=FALSE,     # object scores written to file (default no)
+                  objlabel=FALSE,      # object score plot labeled (default no)
                   offset=1.20,         # offset for labeled plots (default 1.20)
                   eps1=-Inf,           # iteration precision eigenvalues (default 1e-6)
                   eps2=1e-6,           # iteration precision eigenvectors (default 1e-6)
                   itermax=100,         # maximum number of iterations (default 100)
-                  voronoi=F,           # voronoi diagram
-                  saveMe=F,            # do we return the results
-                  demo=F,              # animated iteration demo (default no)
-                  timer=F,             # time the steps of program (default no)
-                  tk=F,				   # create tk homals output (default no)
-                  img1,				   # tkrplot image1 placeholder
+                  voronoi=FALSE,       # voronoi diagram
+                  saveMe=FALSE,        # do we return the results
+                  demo=FALSE,          # animated iteration demo (default no)
+                  timer=FALSE,         # time the steps of program (default no)
+                  tk=FALSE,	       # create tk homals output (default no)
+                  img1,		       # tkrplot image1 placeholder
                   img2,                # tkrplot image2 placeholder
-                  img3,				   # tkrplot image3 placeholder
-                  name				   # dataframe name from tkhomals
+                  img3,		       # tkrplot image3 placeholder
+                  name		       # dataframe name from tkhomals
                   )               
                   {            
 if (timer) stime<-proc.time()

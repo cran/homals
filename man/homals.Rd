@@ -32,7 +32,7 @@
   discriminant analysis and regression analysis.
 }
 \usage{
-homals(data, sets=0, ndim=2, active=T, rank=ndim, level="NO", starplots = FALSE,
+homals(data, sets=0, ndim=2, active=TRUE, rank=ndim, level="NO", starplots = FALSE,
 catplots =  FALSE, trfplots =  FALSE, lossplots =  FALSE, hullplots = FALSE, 
 spanplots = FALSE, graphplot =  FALSE, objplot =  FALSE, objscores =  FALSE,
 objlabel =  FALSE, offset =  1.20, eps1 =  -Inf, eps2 =  1e-6, itermax =  100,
