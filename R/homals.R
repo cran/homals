@@ -715,7 +715,7 @@ for (j in 1:nvar) {
 	}
 if (doPDF) dev.off()
 if (objscores){
-	write(x,file=objfile,ncolumns=p)
+	write(z,file=objfile,ncolumns=ndim)
 	close(objfile)}
 if (timer) {otime<-proc.time()
 	cat("Input time:     ",formatC(itime-stime,digits=6,width=10,format="f"),"\n",file=outfile)

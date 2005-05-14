@@ -1,6 +1,6 @@
 Package: homals
-Version: 0.2.3
-Date: 2005-05-03
+Version: 0.2.4
+Date: 2005-05-14
 Title: Homogeneity Analysis in R  
 Author: Jan de Leeuw <deleeuw@stat.ucla.edu> with Arno Ouwehand (arno@stat.ucla.edu) 
 Maintainer: Jan de Leeuw <deleeuw@stat.ucla.edu>
