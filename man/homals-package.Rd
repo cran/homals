@@ -14,8 +14,8 @@
 \tabular{ll}{
 Package: \tab homals\cr
 Type: \tab Package\cr
-Version: \tab 0.9-3\cr
-Date: \tab 2007-10-29\cr
+Version: \tab 0.9-4\cr
+Date: \tab 2007-02-05\cr
 License: \tab GPL\cr
 URL: \tab \url{http://r-forge.r-project.org/projects/psychor/}\cr
 }

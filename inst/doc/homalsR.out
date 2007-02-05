@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{Section.0.Introduction.1}{Introduction}{}
+\BOOKMARK [1][-]{Section.1.Homogeneity Analysis.1}{Homogeneity Analysis}{}
+\BOOKMARK [2][-]{Subsection.2.0.Establishing the loss function.2}{Establishing the loss function}{Section.1.Homogeneity Analysis.1}
+\BOOKMARK [2][-]{Subsection.2.1.Geometry of the loss function.2}{Geometry of the loss function}{Section.1.Homogeneity Analysis.1}
+\BOOKMARK [2][-]{Subsection.2.2.Minimizing the loss function.2}{Minimizing the loss function}{Section.1.Homogeneity Analysis.1}
+\BOOKMARK [1][-]{Section.2.Extensions of homogeneity analysis.1}{Extensions of homogeneity analysis}{}
+\BOOKMARK [2][-]{Subsection.3.0.Nonlinear principal component analysis.2}{Nonlinear principal component analysis}{Section.2.Extensions of homogeneity analysis.1}
+\BOOKMARK [2][-]{Subsection.3.1.Nonlinear canonical correlation analysis.2}{Nonlinear canonical correlation analysis}{Section.2.Extensions of homogeneity analysis.1}
+\BOOKMARK [2][-]{Subsection.3.2.Cone restricted SVD.2}{Cone restricted SVD}{Section.2.Extensions of homogeneity analysis.1}
+\BOOKMARK [1][-]{Section.3.The R package homals.1}{The R package homals}{}
+\BOOKMARK [2][-]{Subsection.4.0.Simple Homogeneity Analysis.2}{Simple Homogeneity Analysis}{Section.3.The R package homals.1}
+\BOOKMARK [2][-]{Subsection.4.1.Predictive Models and Canonical Correlation.2}{Predictive Models and Canonical Correlation}{Section.3.The R package homals.1}
+\BOOKMARK [2][-]{Subsection.4.2.NLPCA on Roskam data.2}{NLPCA on Roskam data}{Section.3.The R package homals.1}
+\BOOKMARK [1][-]{Section.4.Discussion.1}{Discussion}{}

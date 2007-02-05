@@ -1,8 +1,8 @@
 Package: homals
 Type: Package
 Title: Homogeneity Analysis
-Version: 0.9-3
-Date: 2007-11-05
+Version: 0.9-4
+Date: 2007-02-05
 Author: Jan de Leeuw, Patrick Mair
 Maintainer: Jan de Leeuw <deleeuw@ucla.edu>
 Description: This package performs a homogeneity analysis, aka a multiple correspondence
@@ -13,4 +13,4 @@ License: GPL
 URL: http://r-forge.r-project.org/projects/psychor/
 Imports: graphics, stats
 Depends: rgl, ape, scatterplot3d
-Packaged: Mon Nov  5 22:24:36 2007; admin
+Packaged: Thu Apr  3 04:47:41 2008; theussl
