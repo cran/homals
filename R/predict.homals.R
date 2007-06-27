@@ -8,9 +8,9 @@ function(object, ...)
   for (i in 1:length(object$cat.loadings)) 
   {
     ax <- object$cat.loadings[[i]]
-    ay <- object$rank.cat[[i]]
+    ay <- object$catscores[[i]]
     ag <- object$dframe[,i]
-    bx <- lsfit(t(ax),t(object$scores),intercept=FALSE)$coef
+    bx <- lsfit(t(ax),t(object$objscores),intercept=FALSE)$coef
     ux <- crossprod(bx,ax)
     d <- outer(rowSums(ux^2),rowSums(ay^2),"+")-2*tcrossprod(ux,ay)
     h <- levels(ag)[apply(d,1,which.min)]

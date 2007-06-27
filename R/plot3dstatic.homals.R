@@ -19,9 +19,9 @@ if (missing(zlab)) zlab <- paste("Dimension",pd3)
 nvar <- dim(x$dframe)[2]
 if (missing(var.subset)) var.subset <- 1:nvar
 
-x1 <- x$scores[,pd1]
-y1 <- x$scores[,pd2]
-z1 <- x$scores[,pd3]
+x1 <- x$objscores[,pd1]
+y1 <- x$objscores[,pd2]
+z1 <- x$objscores[,pd3]
 
 #----------------------------- object plot -------------------------------------
 if (plot.type == "objplot") {
@@ -34,7 +34,7 @@ if (plot.type == "objplot") {
 
   pr <- scatterplot3d(x1, y1, z1, type = "n", main = main1, xlab = xlab, ylab = ylab,
                       zlab = zlab, xlim = xlim, ylim = ylim, zlim = zlim, ...)
-  text(pr$xyz.convert(x1, y1, z1), labels = rownames(x$scores))
+  text(pr$xyz.convert(x1, y1, z1), labels = rownames(x$objscores))
 }
 #----------------------------- end object plot ---------------------------------
 
@@ -79,17 +79,17 @@ if (plot.type == "labplot") {
 if (plot.type == "catplot") {
 
   if (missing(type)) type <- "b"
-  if (missing(xlim)) xlim <- range(sapply(x$rank.cat, function(zz) range(zz[,pd1])))
-  if (missing(ylim)) ylim <- range(sapply(x$rank.cat, function(zz) range(zz[,pd2])))
-  if (missing(ylim)) zlim <- range(sapply(x$rank.cat, function(zz) range(zz[,pd3])))
+  if (missing(xlim)) xlim <- range(sapply(x$catscores, function(zz) range(zz[,pd1])))
+  if (missing(ylim)) ylim <- range(sapply(x$catscores, function(zz) range(zz[,pd2])))
+  if (missing(ylim)) zlim <- range(sapply(x$catscores, function(zz) range(zz[,pd3])))
 
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Category plot for",colnames(x$dframe[i]))  else main1 <- main
     par("ask"=TRUE)
-    pr <- scatterplot3d(x$rank.cat[[i]][,c(pd1,pd2,pd3)], type = type, xlim = xlim, ylim = ylim,
+    pr <- scatterplot3d(x$catscores[[i]][,c(pd1,pd2,pd3)], type = type, xlim = xlim, ylim = ylim,
                         main = main1, xlab = xlab, ylab = ylab, zlab = zlab,  
                         col.grid = "white", ...)
-    text(pr$xyz.convert(x$rank.cat[[i]][,c(pd1,pd2,pd3)]), labels = levels(x$dframe[,i]), 
+    text(pr$xyz.convert(x$catscores[[i]][,c(pd1,pd2,pd3)]), labels = levels(x$dframe[,i]), 
          pos = 3)
     pr$plane3d(c(0,0,0),col = "gray", lty.box = "solid")
   }
@@ -104,28 +104,28 @@ if (plot.type == "starplot") {
     par("ask" = TRUE)
     pr <- scatterplot3d(x1, y1, z1, color = "RED", pch = 24, main = main1, 
                         xlab = xlab, ylab = ylab, zlab = zlab, type = "n", ...)    
-    y <- computeY(x$dframe[,i], x$scores[,c(pd1,pd2,pd3)])
+    y <- computeY(x$dframe[,i], x$objscores[,c(pd1,pd2,pd3)])
     pr$points3d(y, col = "RED", pch = 24)
     text(pr$xyz.convert(y), labels = levels(x$dframe[,i]), pos = 3, col="RED")
     pr$points3d(x1, y1, z1, col = "BLUE")
     #text(pr$xyz.convert(x1, y1, z1), labels = rownames(x$dframe), pos = 3, col="BLUE")
 
     for (j in 1:length(x$dframe[,i])) 
-      pr$points3d(rbind(x$scores[j,c(pd1,pd2,pd3)],y[x$dframe[,i][j],]), col = "BLUE", type="l", lty=1)
+      pr$points3d(rbind(x$objscores[j,c(pd1,pd2,pd3)],y[x$dframe[,i][j],]), col = "BLUE", type="l", lty=1)
     identify(pr$xyz.convert(x1, y1, z1), labels = rownames(x$dframe), col = "BLUE") 
   }
 }
 #----------------------------------end starplot---------------------------------
 
 if (plot.type == "jointplot") {
-  xylist <- lapply(x$rank.cat, apply, 2, range)         
+  xylist <- lapply(x$catscores, apply, 2, range)         
   xytab <- sapply(xylist, function(yy) yy[,c(pd1,pd2,pd3)])
-  xmin <- min(xytab[1,], x$scores[,pd1])
-  xmax <- max(xytab[2,], x$scores[,pd1])
-  ymin <- min(xytab[3,], x$scores[,pd2])
-  ymax <- max(xytab[4,], x$scores[,pd2])
-  zmin <- min(xytab[5,], x$scores[,pd3])
-  zmax <- max(xytab[6,], x$scores[,pd3])
+  xmin <- min(xytab[1,], x$objscores[,pd1])
+  xmax <- max(xytab[2,], x$objscores[,pd1])
+  ymin <- min(xytab[3,], x$objscores[,pd2])
+  ymax <- max(xytab[4,], x$objscores[,pd2])
+  zmin <- min(xytab[5,], x$objscores[,pd3])
+  zmax <- max(xytab[6,], x$objscores[,pd3])
     
   if (missing(xlim)) xlim <- c(xmin, xmax)
   if (missing(ylim)) ylim <- c(ymin, ymax)
@@ -140,7 +140,7 @@ if (plot.type == "jointplot") {
   catleg <- NULL
   for (j in var.subset)
   {
-    text(pr$xyz.convert(x$rank.cat[[j]][,c(pd1,pd2,pd3)]), labels = rownames(x$rank.cat[[j]]), col = catcol[j])
+    text(pr$xyz.convert(x$catscores[[j]][,c(pd1,pd2,pd3)]), labels = rownames(x$catscores[[j]]), col = catcol[j])
     catleg <- c(catleg, catcol[j])
   }
   #legend(leg.pos,colnames(x$dframe)[var.subset], col = catleg, pch = 22)

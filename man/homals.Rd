@@ -10,20 +10,20 @@
   one to treat a variable as nominal, ordinal, or numerical). 
 }
 \usage{
-homals(dframe, sets = 0, ndim = 2, active = TRUE, rank = ndim, level = "nominal", 
+homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE, 
        eps = 1e-06, itermax = 100, verbose = 0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dframe}{Data in data-frame.}
-  \item{sets}{List of vectors of indices.}
+  \item{data}{Data in data frame.}
   \item{ndim}{Number of dimensions to be extracted.}
-  \item{active}{Which variables are active for computation (\code{TRUE} means all)}
   \item{rank}{Which quantification ranks. Default is number of dimensions \code{ndim}}
-  \item{level}{Which quantification levels. Possible values are \code{"nominal"},
+  \item{level}{Which quantification levels. Possible values are \code{"nominal"},  
   \code{"ordinal"}, \code{"numerical"}, and \code{"polynomial"} which can be defined as single 
   character (if all variable are of the same level) or as vector which length corresponds to the
   number of variables.} 
+  \item{sets}{List of vectors of indices.}
+  \item{active}{Which variables are active for computation (\code{TRUE} means all)}
   \item{eps}{Iteration precision eigenvalues.}
   \item{itermax}{Maximum number of iterations.}
   \item{verbose}{0 for no iteration output, 1 prints outer iterations, 2 prints outer and inner iterations, 3 prints outer and inner and innermost iterations.}
@@ -53,18 +53,17 @@ homals(dframe, sets = 0, ndim = 2, active = TRUE, rank = ndim, level = "nominal"
   Returns an object of class \code{"homals"}.
   
   \item{datname}{Name of the data file.}
-  \item{dframe}{Data file.}
-  \item{ndim}{Number of dimensions.}
+  \item{catscores}{List of category scores for each variable.}
+  \item{scoremat}{Reproduced data matrix with category scores.}
+  \item{objscores}{Matrix with object scores on each dimension.}
+  \item{cat.centroids}{List of category centroids.}
+  \item{ind.mat}{Dummy coded indicator matrix.}
+  \item{cat.loadings}{List of category loadings.}
+  \item{low.rank}{List of lower rank quantifications.}
   \item{niter}{Number of iterations.}
-  \item{level}{Vector with variable levels.}
   \item{eigenvalues}{Final eigenvalues.}
   \item{loss}{Value of the loss function.}
   \item{rank.vec}{Vector with ranks for each variable.}
-  \item{scores}{Matrix with object scores on single dimension.}
-  \item{rank.cat}{List of rank restriced category quantifications.}
-  \item{cat.centroids}{List of category centroids.}
-  \item{cat.loadings}{List of category loadings.}
-  \item{low.rank}{List of lower rank quantifications.}
   \item{active}{Vector with active/inactive variables.}
 }
 \references{

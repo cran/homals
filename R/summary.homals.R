@@ -15,9 +15,9 @@ function(object, ...)
     cat("\nCategory centroids:\n")
     print(round(object$cat.centroids[[i]], 4))
     cat("\nRank-restricted category quantifications:\n")
-    print(round(object$rank.cat[[i]], 4)) 
+    print(round(object$catscores[[i]], 4)) 
     cat("\nLower rank quantifications (rank = ",object$rank.vec[i],"):\n",sep="")
-    print(round(object$low.rank[[i]], 4)) 
+    print(round(object$catscores[[i]], 4)) 
   }
   cat("\n")
 }

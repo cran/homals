@@ -1,19 +1,19 @@
 `homals` <-
-function(dframe,   # data (in data-frame)
-		sets=0, 				# list of vectors of indices
-		ndim=2,              	# dimensionality (default 2)
-		active=TRUE,            # which variables are active (single TRUE means all)
-		rank=ndim,           	# which quantification ranks (default all ndim)
-		level="nominal",		# which measurement level (default all nominal)
-		eps=1e-6,           	# iteration precision eigenvalues (default 1e-6)
-		itermax=100,         	# maximum number of iterations (default 100)
-		verbose=0				# debugging output level
-)
-
+function(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,        
+         eps = 1e-6, itermax = 100,	verbose = 0)
 {
+
+#data ... data frame
+#sets ...  list of vectors of set indices 
+#level ... which measurement level (either single string or vector
+#ndim ... number of dimensions
+#active ... which variables are active (single TRUE means all)
+#rank ... which category quantification ranks (default all ndim)
+#eps ... iteration precision eigenvalues (default 1e-6)
 
 #-----------------------------set some constants--------------------------------
 
+dframe <- data
 name <- deparse(substitute(dframe))		# frame name
 nobj <- nrow(dframe)					# number of objects
 nvar <- ncol(dframe)					# number of variables
@@ -118,12 +118,29 @@ rownames(z) <- rownames(dframe)
 colnames(z) <- dimlab
 #alist.t <- lapply(alist,t)
 
+#------ score and dummy matrix -------
+dummymat <- as.matrix(expandFrame(data), zero = FALSE)         #indicator matrix
+dummymat[dummymat == 2] <- NA
+catscores.d1 <-  do.call(rbind, ylist)[,1]       #category scores D1
+dummy.scores <- t(t(dummymat) * catscores.d1)
+if (!any(is.na(dummy.scores))) {
+  scoremat <- t(apply(dummy.scores, 1, function(xx) xx[xx!=0]))  #data matrix with category scores
+} else {
+  cat.ind <- sequence(sapply(apply(data, 2, table), length))     #category index
+  scoremat <- t(apply(dummy.scores, 1, function(xx) {              #NA treatment
+                                         ind.el <- which(xx == 0)
+                                         ind.nael <- which((is.na(xx) + (cat.ind != 1)) == 2)
+                                         xx[-c(ind.el, ind.nael)]
+                                       }))  #list of scores
+}   
+colnames(scoremat) <- colnames(data)
+
 #--------------------------end preparing/labeling output------------------------
 
-result <- list(datname = name, dframe = dframe, ndim = ndim, niter = iter, level = level, 
-               eigenvalues = r, loss = snew, rank.vec = rank,
-               scores = z, rank.cat = ylist, cat.centroids = clist,
-               cat.loadings = alist, low.rank = ulist, active = active)
+result <- list(datname = name, catscores = ylist, scoremat = scoremat, objscores = z, 
+               cat.centroids = clist, ind.mat = dummymat, cat.loadings = alist, 
+               low.rank = ulist, ndim = ndim, niter = iter, level = level, 
+               eigenvalues = r, loss = snew, rank.vec = rank, active = active, dframe = dframe)
 class(result) <- "homals"
 result
 }

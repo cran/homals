@@ -3,19 +3,14 @@
 \docType{package}
 \title{Homogeneity Analysis
 }
-\description{This package performs a homogeneity analysis, aka a multiple correspondence
-  analysis, but with many additional options. Variables can be grouped into
-  sets, in order to emulate regression analysis and canonical analysis. For
-  each variable there are, in addition, rank constraints on the category
-  quantifications (or transformations) and level constraints (which allows
-  one to treat a variable as nominal, ordinal, or numerical). 
+\description{This package performs a homogeneity analysis and various extensions. Rank restrictions on the category quantifications can be imposed (nonlinear PCA). The categories are transformed by means of optimal scaling with options for nominal, ordinal, and numerical scale levels (for rank-1 restrictions). Variables can be grouped into sets, in order to emulate regression analysis and canonical correlation analysis. 
 }
 \details{
 \tabular{ll}{
 Package: \tab homals\cr
 Type: \tab Package\cr
-Version: \tab 0.9-4\cr
-Date: \tab 2007-02-05\cr
+Version: \tab 0.9-5\cr
+Date: \tab 2007-06-27\cr
 License: \tab GPL\cr
 URL: \tab \url{http://r-forge.r-project.org/projects/psychor/}\cr
 }

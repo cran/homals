@@ -56,16 +56,16 @@ if (plot.type == "loadplot") {
 if (plot.type == "catplot") {
 
   if (missing(type)) type <- "b"
-  if (missing(xlim)) xlim <- range(sapply(x$rank.cat, function(zz) range(zz[,pd1])))
-  if (missing(ylim)) ylim <- range(sapply(x$rank.cat, function(zz) range(zz[,pd2])))
+  if (missing(xlim)) xlim <- range(sapply(x$catscores, function(zz) range(zz[,pd1])))
+  if (missing(ylim)) ylim <- range(sapply(x$catscores, function(zz) range(zz[,pd2])))
 
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Category plot for",colnames(x$dframe[i]))  else main1 <- main
 
     par("ask"=TRUE)
-    plot(x$rank.cat[[i]][,c(pd1,pd2)], type = type, xlim = xlim, ylim = ylim,
+    plot(x$catscores[[i]][,c(pd1,pd2)], type = type, xlim = xlim, ylim = ylim,
     main = main1, xlab = xlab, ylab = ylab, ...)
-    text(x$rank.cat[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, ...)
+    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, ...)
     abline(h = 0, v = 0, col = "gray", lty = 2, ...)
   }
 }
@@ -73,26 +73,26 @@ if (plot.type == "catplot") {
 
 #------------------------------------jointplot----------------------------------
 if (plot.type == "jointplot") {
-  xylist <- lapply(x$rank.cat, apply, 2, range)         
+  xylist <- lapply(x$catscores, apply, 2, range)         
   xytab <- sapply(xylist, function(yy) yy[,c(pd1,pd2)])
-  xmin <- min(xytab[1,], x$scores[,pd1])
-  xmax <- max(xytab[2,], x$scores[,pd1])
-  ymin <- min(xytab[3,], x$scores[,pd2])
-  ymax <- max(xytab[4,], x$scores[,pd2])
+  xmin <- min(xytab[1,], x$objscores[,pd1])
+  xmax <- max(xytab[2,], x$objscores[,pd1])
+  ymin <- min(xytab[3,], x$objscores[,pd2])
+  ymax <- max(xytab[4,], x$objscores[,pd2])
     
   if (missing(xlim)) xlim <- c(xmin, xmax)
   if (missing(ylim)) ylim <- c(ymin, ymax)
   
   if (missing(main)) main <- "Joint Plot"
-  plot(x$scores[,c(pd1,pd2)], type = "n", main = main, xlab = xlab, ylab = ylab, 
+  plot(x$objscores[,c(pd1,pd2)], type = "n", main = main, xlab = xlab, ylab = ylab, 
   xlim = xlim, ylim = ylim, ...)           #draw scores
-  text(x$scores[,c(pd1,pd2)], labels = rownames(x$dframe), col = 1)
+  text(x$objscores[,c(pd1,pd2)], labels = rownames(x$dframe), col = 1)
   catcol <- rainbow(ncol(x$dframe))
   
   catleg <- NULL
   for (j in var.subset)
   {
-    text(x$rank.cat[[j]][,c(pd1,pd2)], labels = rownames(x$rank.cat[[j]]), col = catcol[j])
+    text(x$catscores[[j]][,c(pd1,pd2)], labels = rownames(x$catscores[[j]]), col = catcol[j])
     catleg <- c(catleg, catcol[j])
   }
   legend(leg.pos,colnames(x$dframe)[var.subset], col = catleg, pch = 22)
@@ -104,23 +104,23 @@ if (plot.type == "jointplot") {
 if (plot.type == "graphplot") {
 
   if (missing(main)) main <- "Graphplot"
-  if (missing(xlim)) xlim <- range(x$scores[,pd1])*1.2
-  if (missing(ylim)) ylim <- range(x$scores[,pd2])*1.2
-  plot(x$scores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim,...)           #draw scores
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])*1.2
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])*1.2
+  plot(x$objscores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim,...)           #draw scores
 
   dmat <- NULL
   for (j in 1:ncol(x$dframe))
   {
-    y <- computeY(x$dframe[,j], x$scores[,c(pd1,pd2)])
+    y <- computeY(x$dframe[,j], x$objscores[,c(pd1,pd2)])
     dmat <- rbind(dmat, y)
     points(y, col = "RED", pch = 16)                             #insert points
     for (i in 1:nrow(x$dframe))
-      lines(rbind(x$scores[i,c(pd1,pd2)], y[x$dframe[i,j],]))                #insert lines
+      lines(rbind(x$objscores[i,c(pd1,pd2)], y[x$dframe[i,j],]))                #insert lines
   }
-  repvec <- sapply(x$rank.cat, function(yy) dim(yy)[1])
+  repvec <- sapply(x$catscores, function(yy) dim(yy)[1])
   varnames <- rep(colnames(x$dframe),repvec)
   rownames(dmat) <- paste(varnames, rownames(dmat))
-  xycoor <- rbind(dmat, x$scores[,c(pd1,pd2)])
+  xycoor <- rbind(dmat, x$objscores[,c(pd1,pd2)])
   identify(xycoor, labels = rownames(xycoor))
 }
 
@@ -135,14 +135,14 @@ if (plot.type == "hullplot") {
     if (missing(main)) main1 <- paste("Hullplot for",colnames(x$dframe[i]))  else main1 <- main
     
     par("ask" = TRUE) 
-    plot(x$scores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main1, xlab = xlab, ylab = ylab, ...)
+    plot(x$objscores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main1, xlab = xlab, ylab = ylab, ...)
        
     for (j in levels(x$dframe[,i])) 
     {
       ind <- which(j==x$dframe[,i])                      #object index for convex hulls
-  	  lst <- ind[chull(x$scores[ind,c(pd1,pd2)])]                  #convex hull over ind
-  	  lines(x$scores[c(lst,lst[1]),c(pd1,pd2)], ...)
-  	  text(x$scores[lst,c(pd1,pd2)], j, ...)
+  	  lst <- ind[chull(x$objscores[ind,c(pd1,pd2)])]                  #convex hull over ind
+  	  lines(x$objscores[c(lst,lst[1]),c(pd1,pd2)], ...)
+  	  text(x$objscores[lst,c(pd1,pd2)], j, ...)
     }
   }
 }
@@ -153,14 +153,14 @@ if (plot.type == "hullplot") {
 
 if (plot.type == "labplot") {
 
-  if (missing(xlim)) xlim <- range(x$scores[,pd1])
-  if (missing(ylim)) ylim <- range(x$scores[,pd2])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Labplot for",colnames(x$dframe[i]))  else main1 <- main
     par("ask" = TRUE)
-    plot(x$scores[,c(pd1,pd2)], type = "n", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, ...)
-    text(x$scores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
+    plot(x$objscores[,c(pd1,pd2)], type = "n", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, ...)
+    text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
   }
 } 
 #-----------------------------------end labplot---------------------------------
@@ -172,22 +172,22 @@ if (plot.type == "lossplot") {
     
     if (missing(main)) main1 <- paste("Lossplot for",colnames(x$dframe[i])) else main1 <- main
     
-    z <- computeY(x$dframe[,i], x$scores[,c(pd1,pd2)])
+    z <- computeY(x$dframe[,i], x$objscores[,c(pd1,pd2)])
     k <- dim(z)[1]
     
-    if (missing(xlim)) xlim1 <- range(c(z[,2],x$rank.cat[[i]][,pd1])) else xlim1 <- xlim
-    if (missing(ylim)) ylim1 <- range(c(z[,2],x$rank.cat[[i]][,pd2])) else ylim1 <- ylim
+    if (missing(xlim)) xlim1 <- range(c(z[,2],x$catscores[[i]][,pd1])) else xlim1 <- xlim
+    if (missing(ylim)) ylim1 <- range(c(z[,2],x$catscores[[i]][,pd2])) else ylim1 <- ylim
     
     par("ask" = TRUE)
-    plot(x$rank.cat[[i]][,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
+    plot(x$catscores[[i]][,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
          xlim = xlim1, ylim = ylim1, col = "RED", ...)
-    text(x$rank.cat[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, col = "RED", ...)
-    lines(x$rank.cat[[i]][,c(pd1,pd2)], col = "RED")
+    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, col = "RED", ...)
+    lines(x$catscores[[i]][,c(pd1,pd2)], col = "RED")
     
     points(z,type="p", col = "blue")
     text(z, levels(x$dframe[,i]), col="blue", pos = 3, ...)
     lines(z, col="blue")
-    for (j in 1:k) lines(rbind(x$rank.cat[[i]][j,c(pd1,pd2)],z[j,]),col="lightgray", lty=3)
+    for (j in 1:k) lines(rbind(x$catscores[[i]][j,c(pd1,pd2)],z[j,]),col="lightgray", lty=3)
     
     abline(h = 0, v = 0, col = "gray", lty = 2, ...)
   }  
@@ -199,13 +199,13 @@ if (plot.type == "lossplot") {
 
 if (plot.type == "objplot") {
     
-  if (missing(xlim)) xlim <- range(x$scores[,pd1])
-  if (missing(ylim)) ylim <- range(x$scores[,pd2])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   if (missing(main)) main1 <- "Object score plot" else main1 <- main
 
-  plot(x$scores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
+  plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
        xlim = xlim, ylim = ylim, ...)
-  text(x$scores[,c(pd1,pd2)], rownames(x$scores), ...)
+  text(x$objscores[,c(pd1,pd2)], rownames(x$objscores), ...)
 } 
 
 #---------------------------------end objplot-----------------------------------
@@ -215,8 +215,8 @@ if (plot.type == "objplot") {
 
 if (plot.type == "prjplot") {
 
-  if (missing(xlim)) xlim <- range(x$scores[,pd1])
-  if (missing(ylim)) ylim <- range(x$scores[,pd2])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   xylim <- c(min(xlim[1],ylim[1]),max(xlim[2],ylim[2]))
   
   for (i in var.subset) {
@@ -227,21 +227,21 @@ if (plot.type == "prjplot") {
     
     if (x$rank.vec[i] == 1) {
       par("ask" = TRUE)
-      plot(x$scores[,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
+      plot(x$objscores[,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
            xlim = xylim, ylim = xylim, ...)
-      text(x$scores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3) 
-      text(x$rank.cat[[i]], levels(x$dframe[,i]), col = "RED", pos = 3)
+      text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3) 
+      text(x$catscores[[i]], levels(x$dframe[,i]), col = "RED", pos = 3)
       slope = a[2]/a[1]
       abline(coef = c(0,slope))
       slope = -a[1]/a[2]
       
-      for (j in 1:(dim(x$rank.cat[[i]])[1]))
-  	    abline(coef = c(x$rank.cat[[i]][j,pd2] - slope*x$rank.cat[[i]][j,pd1],slope), col = "RED")
-  	  for (k in 1:(dim(x$scores)[1])) {
+      for (j in 1:(dim(x$catscores[[i]])[1]))
+  	    abline(coef = c(x$catscores[[i]][j,pd2] - slope*x$catscores[[i]][j,pd1],slope), col = "RED")
+  	  for (k in 1:(dim(x$objscores)[1])) {
   	    j <- x$dframe[,i][k]
-        icpt <- x$rank.cat[[i]][j,pd2] - slope*x$rank.cat[[i]][j,pd1] 
-  	    u <-(x$scores[k,pd1] + slope*(x$scores[k,pd2]-icpt))/(1+slope^2)  
-        lines(rbind(x$scores[k,c(pd1,pd2)],c(u,icpt+slope*u)), col = "BLUE")
+        icpt <- x$catscores[[i]][j,pd2] - slope*x$catscores[[i]][j,pd1] 
+  	    u <-(x$objscores[k,pd1] + slope*(x$objscores[k,pd2]-icpt))/(1+slope^2)  
+        lines(rbind(x$objscores[k,c(pd1,pd2)],c(u,icpt+slope*u)), col = "BLUE")
   	  }
       abline(h = 0, v = 0, col = "gray", lty = 2, ...)   
     } else {
@@ -258,16 +258,16 @@ if (plot.type == "spanplot") {
     if (missing(main)) main1 <- paste("Span plot for", colnames(x$dframe[i])) else main1 <- main
     
     par("ask" = TRUE)
-    plot(x$scores[,c(pd1,pd2)], col = 1, pch = 21, main = main1, xlab = xlab, ylab = ylab)
+    plot(x$objscores[,c(pd1,pd2)], col = 1, pch = 21, main = main1, xlab = xlab, ylab = ylab)
     lev <- levels(x$dframe[,i])
     rb<-rainbow(length(lev))
     for (k in lev) {
   	  ind <- which(k==x$dframe[,i])
   	  n <- length(ind)
-  	  mm <- mst(dist(x$scores[ind,c(pd1,pd2)]))
+  	  mm <- mst(dist(x$objscores[ind,c(pd1,pd2)]))
   	  for (j in 1:n) {
   		  jnd <- which(1 == as.vector(mm[j,]))
-  		  sapply(jnd, function(r) lines(rbind(x$scores[ind[j],c(pd1,pd2)], x$scores[ind[r],c(pd1,pd2)]),
+  		  sapply(jnd, function(r) lines(rbind(x$objscores[ind[j],c(pd1,pd2)], x$objscores[ind[r],c(pd1,pd2)]),
         col = rb[which(lev==k)]))
   		}
   	 legend(leg.pos,paste("Category",lev), col = rb, lty = 1, ...)
@@ -284,14 +284,14 @@ if (plot.type == "starplot") {
     if (missing(main)) main1 <- paste("Star plot for", colnames(x$dframe[i])) else main1 <- main
     
     par("ask" = TRUE)
-    plot(x$scores[,c(pd1,pd2)], col = "BLUE", main = main1, xlab = xlab, ylab = ylab, ...)
+    plot(x$objscores[,c(pd1,pd2)], col = "BLUE", main = main1, xlab = xlab, ylab = ylab, ...)
     
-    z <- computeY(x$dframe[,i], x$scores[,c(pd1,pd2)])
+    z <- computeY(x$dframe[,i], x$objscores[,c(pd1,pd2)])
     points(z, type="o", pch = 24, col = "RED")
     text(z, levels(x$dframe[,i]), col = "RED", pos = 3)
     for (j in 1:length(x$dframe[,i])) 
-      lines(rbind(x$scores[j,c(pd1,pd2)],z[x$dframe[,i][j],]), col = "BLUE")
-    identify(x$scores[,c(pd1,pd2)], labels = rownames(x$dframe), col = "BLUE") 
+      lines(rbind(x$objscores[j,c(pd1,pd2)],z[x$dframe[,i][j],]), col = "BLUE")
+    identify(x$objscores[,c(pd1,pd2)], labels = rownames(x$dframe), col = "BLUE") 
   }
 }
 #----------------------------------end starplot---------------------------------
@@ -301,8 +301,8 @@ if (plot.type == "starplot") {
 
 if (plot.type == "vecplot") {
   
-  if (missing(xlim)) xlim <- range(x$scores[,pd1])
-  if (missing(ylim)) ylim <- range(x$scores[,pd2])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   xylim <- c(min(xlim[1],ylim[1]),max(xlim[2],ylim[2]))
 
   for (i in var.subset) {
@@ -311,15 +311,15 @@ if (plot.type == "vecplot") {
     if (x$rank.vec[i] == 1) {
       a <- x$cat.loadings[[i]][,c(pd1,pd2)]
       par("ask" = TRUE)
-      plot(x$scores[,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
+      plot(x$objscores[,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
            xlim = xylim, ylim = xylim, ...)
-      text(x$scores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3, ...) 
-      text(x$rank.cat[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), col = "RED", ...)
+      text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3, ...) 
+      text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), col = "RED", ...)
       slope = a[2]/a[1]
       abline(coef = c(0,slope))
       
       for (j in 1:length(x$dframe[,i])) {
-        xs <- xe <- x$scores[j,c(pd1,pd2)]  
+        xs <- xe <- x$objscores[j,c(pd1,pd2)]  
         xe[1] <- (xs[1]+(xs[2]*slope))/(1+(slope^2))
         xe[2] <- slope*xe[1]     
   	    lines(rbind(xs,xe), col = "BLUE", ...)
@@ -368,15 +368,15 @@ if (plot.type == "vorplot") {
   for (i in var.subset) {
      
      if (missing(main)) main1 <- paste("Voronoi plot for", colnames(x$dframe[i])) else main1 <- main
-     z <- rbind(x$scores[,c(pd1,pd2)],x$rank.cat[[i]][,c(pd1,pd2)])
+     z <- rbind(x$objscores[,c(pd1,pd2)],x$catscores[[i]][,c(pd1,pd2)])
      if (missing(xlim)) xlim1 <- range(z[,1]) else xlim1 <- xlim
      if (missing(ylim)) ylim1 <- range(z[,2]) else ylim1 <- ylim
    
      par("ask" = TRUE)
-     plot(x$scores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
+     plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
           xlim = xlim1, ylim = ylim1, ...)
-     drawEdges(x$rank.cat[[i]][,c(pd1,pd2)], far = 1000)
-     text(x$scores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
+     drawEdges(x$catscores[[i]][,c(pd1,pd2)], far = 1000)
+     text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
   }
 }
 #----------------------------------end vorplot----------------------------------

@@ -14,9 +14,9 @@ pd3 <- plot.dim[3]
 if (pd3 > x$ndim) stop("Only",x$ndim,"dimensions were extracted!")
 
 
-x1 <- x$scores[,pd1]
-y1 <- x$scores[,pd2]
-z1 <- x$scores[,pd3]
+x1 <- x$objscores[,pd1]
+y1 <- x$objscores[,pd2]
+z1 <- x$objscores[,pd3]
 nvar <- dim(x$dframe)[2]
 if (missing(var.subset)) var.subset <- 1:nvar
 
@@ -41,7 +41,7 @@ if (plot.type == "objplot")
   #open3d()
   rgl.open()
   rgl.bg(sphere = sphere, texture = texture1, back = "filled", color = "white", ...)
-  text3d(x$scores[,c(pd1,pd2,pd3)],texts = rownames(x$scores), col = col, ...)
+  text3d(x$objscores[,c(pd1,pd2,pd3)],texts = rownames(x$objscores), col = col, ...)
   axes3d(c('x','y','z'), labels = TRUE, color = "black", ...)
   title3d(xlab = xlab, ylab = ylab, zlab = zlab, main = main1, color = "black", ...)
   if (ax.grid) grid3d(c('x','y','z')) 
@@ -100,7 +100,7 @@ if (plot.type == "catplot") {
     
     rgl.open()
     rgl.bg(sphere = sphere, texture = texture1, back = "filled", color = "white", ...)
-    text3d(x$rank.cat[[i]][,c(pd1,pd2,pd3)], texts = levels(x$dframe[,i]), col = col, ...)
+    text3d(x$catscores[[i]][,c(pd1,pd2,pd3)], texts = levels(x$dframe[,i]), col = col, ...)
     axes3d(c('x','y','z'), labels = TRUE, color = "black", ...)
     title3d(xlab = xlab, ylab = ylab, zlab = zlab, main = main1, color = "black", ...)
     if (ax.grid) grid3d(c('x','y','z'))
@@ -114,14 +114,14 @@ if (plot.type == "starplot") {
   
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Star plot for", colnames(x$dframe[i])) else main1 <- main
-    y <- computeY(x$dframe[,i], x$scores[,c(pd1,pd2,pd3)])
+    y <- computeY(x$dframe[,i], x$objscores[,c(pd1,pd2,pd3)])
     rgl.open()
     rgl.bg(sphere = sphere, texture = texture1, back = "filled", color = "white", ...)
     points3d(x1, y1, z1, col = 4, size = 3)
     text3d(y, texts = rownames(y), col = "RED")
     
     for (j in 1:length(x$dframe[,i]))                      #lineas
-      lines3d(rbind(x$scores[j,c(pd1,pd2,pd3)],y[x$dframe[,i][j],]), col = 4)
+      lines3d(rbind(x$objscores[j,c(pd1,pd2,pd3)],y[x$dframe[,i][j],]), col = 4)
     
     axes3d(c('x','y','z'), labels = TRUE, color = "black")
     title3d(xlab = xlab, ylab = ylab, zlab = zlab, main = main1, color = "black")
@@ -141,7 +141,7 @@ if (plot.type == "jointplot") {
   rgl.bg(sphere = sphere, texture = texture1, back = "filled", color = "white", ...)  
   text3d(x1, y1, z1, texts = rownames(x$dframe), col = 1) 
   for (i in var.subset) 
-    text3d((x$rank.cat[[i]][,c(pd1,pd2,pd3)]), texts = rownames(x$rank.cat[[i]]), col = catcol[i])
+    text3d((x$catscores[[i]][,c(pd1,pd2,pd3)]), texts = rownames(x$catscores[[i]]), col = catcol[i])
   
   axes3d(c('x','y','z'), labels = TRUE, color = "darkgray")
   title3d(xlab = xlab, ylab = ylab, zlab = zlab, main = main1, color = "darkgray")
