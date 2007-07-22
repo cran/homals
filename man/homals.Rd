@@ -11,7 +11,7 @@
 }
 \usage{
 homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE, 
-       eps = 1e-06, itermax = 100, verbose = 0)
+       eps = 1e-06, itermax = 1000, verbose = 0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -54,7 +54,7 @@ homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,
   
   \item{datname}{Name of the data file.}
   \item{catscores}{List of category scores for each variable.}
-  \item{scoremat}{Reproduced data matrix with category scores.}
+  \item{scoremat}{Array containing the reproduced data matrix based on category scores.}
   \item{objscores}{Matrix with object scores on each dimension.}
   \item{cat.centroids}{List of category centroids.}
   \item{ind.mat}{Dummy coded indicator matrix.}
@@ -88,7 +88,7 @@ Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
   ##Nonlinear canonical correlation (2 sets of variables)
   res <- homals(galo, active = c(rep(TRUE, 4), FALSE), sets = list(c(1,2),c(3,4),5))
   
-  ##regression (numerical)
+  ##regression (linear)
   data(neumann)
   res <- homals(neumann, sets = list(3, 1:2), level = "numerical", rank = 1)
   

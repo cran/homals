@@ -2,6 +2,8 @@
 function(x, ...)
 {
   nvar <- dim(x$dframe)[2]
+  cat("\nCall: ")
+  print(x$call)
   cat("\nLoss:",x$loss,"\n")
   cat("\nEigenvalues:\n")
   eigen.val <- round(x$eigenvalues, 4)
@@ -15,5 +17,6 @@ function(x, ...)
   cat("Loadings (first solution only):\n")
   print(loadmat)
   cat("\n")
+  invisible(x)
 }
 

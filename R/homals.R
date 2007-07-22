@@ -1,6 +1,6 @@
 `homals` <-
 function(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,        
-         eps = 1e-6, itermax = 100,	verbose = 0)
+         eps = 1e-6, itermax = 1000, verbose = 0)
 {
 
 #data ... data frame
@@ -11,7 +11,7 @@ function(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE
 #rank ... which category quantification ranks (default all ndim)
 #eps ... iteration precision eigenvalues (default 1e-6)
 
-#-----------------------------set some constants--------------------------------
+#----------------------------- constants --------------------------------
 
 dframe <- data
 name <- deparse(substitute(dframe))		# frame name
@@ -20,13 +20,21 @@ nvar <- ncol(dframe)					# number of variables
 vname <- names(dframe)					# variable names
 rname <- rownames(dframe)				# object names
 
-#-----------------------------convert to factors--------------------------------
+#-----------------------------convert to factors, check data -------------------
 
 for (j in 1:nvar) {
 	dframe[, j] <- as.factor(dframe[, j])
-    levels(dframe[, j])<-sort(levels(dframe[, j]))
-	}
+	levfreq <- table(dframe[,j])
+	if (any(levfreq == 0)) {
+    newlev <- levels(dframe[, j])[-which(levfreq == 0)]
+  } else {
+    newlev <- levels(dframe[,j])
+  }
+  dframe[,j] <- factor(dframe[,j], levels = sort(newlev))
+}
 
+varcheck <- apply(dframe, 2, function(tl) length(table(tl)))	
+if (any(varcheck == 1)) stop("Variable with only 1 value detected! Can't proceed with estimation!")
 #-----------------------------parameter consistency-----------------------------
 
 active<-checkPars(active,nvar)
@@ -85,17 +93,25 @@ repeat {
 		stop(cat("loss function increases in iteration ",iter,"\n"))
 		}
 	if ((sold - snew) < eps) break()
-		else {x <- z; sold <- snew}
+		else {x <- z; sold <- snew}            #result: object scores
 	}
 
 #-----------------------------store final version--------------------------------
 
+#---------------------------- Cone restricted SVD ------------------------------
 ylist<-alist<-clist<-ulist<-NULL
-for (j in 1:nvar) {
-  gg<-dframe[,j]; c<-computeY(gg,z); d<-as.vector(table(gg))
-  lst<-restrictY(d,c,rank[j],level[j])
-  y<-lst$y; a<-lst$a; u<-lst$z
-  ylist<-c(ylist,list(y)); alist<-c(alist,list(a)); clist<-c(clist,list(c)); ulist<-c(ulist,list(u))
+for (j in 1:nvar) {                        #final score computation based on SVD
+  gg <- dframe[,j]
+  c <- computeY(gg,z)                      #category centroids based on object scores z
+  d <- as.vector(table(gg))
+  lst <- restrictY(d,c,rank[j],level[j])   #based on category centroids
+  y <- lst$y                               #category scores Y = ZA'
+  a <- lst$a                               #category loadings (weights A)
+  u <- lst$z                               #(single) category scores (low rank quantifications)
+  ylist <- c(ylist,list(y))                #list of final category scores Y
+  alist <- c(alist,list(a))                #list of category loadings A
+  clist <- c(clist,list(c))                #list of category centroids C
+  ulist <- c(ulist,list(u))                #list of low rank quantifications U (aka Z)
 }
 
 #--------------------------preparing/labeling output----------------------------
@@ -108,7 +124,14 @@ for (i in 1:nvar) {
     clist[[i]] <- cbind(clist[[i]])
     #alist[[i]] <- cbind(alist[[i]])
   }
-  rownames(ylist[[i]]) <- rownames(ulist[[i]]) <- rownames(clist[[i]])
+  
+  options(warn = -1)
+  rnames <- sort(as.numeric((rownames(clist[[i]]))))             #convert row names into integers
+  options(warn = 0)
+  if ((any(is.na(rnames))) || (length(rnames) == 0)) rnames <- rownames(clist[[i]])
+  if (!is.matrix(ulist[[i]])) ulist[[i]] <- as.matrix(ulist[[i]])
+  
+  rownames(ylist[[i]]) <- rownames(ulist[[i]]) <- rownames(clist[[i]]) <- rnames
   rownames(alist[[i]]) <- paste(1:dim(alist[[i]])[1])
   colnames(clist[[i]]) <- colnames(ylist[[i]]) <- colnames(alist[[i]]) <- dimlab
   colnames(ulist[[i]]) <- paste(1:dim(as.matrix(ulist[[i]]))[2])
@@ -119,28 +142,34 @@ colnames(z) <- dimlab
 #alist.t <- lapply(alist,t)
 
 #------ score and dummy matrix -------
-dummymat <- as.matrix(expandFrame(data), zero = FALSE)         #indicator matrix
-dummymat[dummymat == 2] <- NA
-catscores.d1 <-  do.call(rbind, ylist)[,1]       #category scores D1
-dummy.scores <- t(t(dummymat) * catscores.d1)
-if (!any(is.na(dummy.scores))) {
-  scoremat <- t(apply(dummy.scores, 1, function(xx) xx[xx!=0]))  #data matrix with category scores
-} else {
-  cat.ind <- sequence(sapply(apply(data, 2, table), length))     #category index
-  scoremat <- t(apply(dummy.scores, 1, function(xx) {              #NA treatment
-                                         ind.el <- which(xx == 0)
-                                         ind.nael <- which((is.na(xx) + (cat.ind != 1)) == 2)
-                                         xx[-c(ind.el, ind.nael)]
-                                       }))  #list of scores
-}   
-colnames(scoremat) <- colnames(data)
+dummymat <- as.matrix(expandFrame(dframe, zero = FALSE, clean = FALSE))         #indicator matrix
+dummymat01 <- dummymat                           #final indicator matrix
+dummymat[dummymat == 2] <- NA                    #missing observations
+dummymat[dummymat == 0] <- Inf                   #irrelevant entries
+
+scoremat <- array(NA, dim = c(dim(dframe), ndim), dimnames = list(rownames(dframe), colnames(dframe), paste("dim", 1:ndim, sep = "")))  #initialize array for score matrix (n*p*ndim)
+
+for (i in 1:ndim) {
+  catscores.d1 <-  do.call(rbind, ylist)[,i]       #category scores for dimension i
+  dummy.scores <- t(t(dummymat) * catscores.d1)    #full score matrix (Inf, -Inf)
+
+  freqlist <- apply(dframe, 2, function(dtab) as.list(table(dtab)))
+  cat.ind <- sequence(sapply(freqlist, length))     #category indices (sequence)
+  scoremat[,,i] <- t(apply(dummy.scores, 1, function(ds) {             #data matrix with category scores
+                          ind.infel <- which(ds == Inf)                         #identify Inf entries
+                          ind.minfel <- which(ds == -Inf)                       #identify -Inf entries
+                          ind.nan <- which(is.nan(ds))
+                          ind.nael <- which((is.na(ds) + (cat.ind != 1)) == 2)  #identify NA entries
+                          ds[-c(ind.infel, ind.minfel, ind.nael, ind.nan)]               #return scored entries
+                      } ))
+}
 
 #--------------------------end preparing/labeling output------------------------
 
 result <- list(datname = name, catscores = ylist, scoremat = scoremat, objscores = z, 
-               cat.centroids = clist, ind.mat = dummymat, cat.loadings = alist, 
+               cat.centroids = clist, ind.mat = dummymat01, cat.loadings = alist, 
                low.rank = ulist, ndim = ndim, niter = iter, level = level, 
-               eigenvalues = r, loss = snew, rank.vec = rank, active = active, dframe = dframe)
+               eigenvalues = r, loss = snew, rank.vec = rank, active = active, dframe = dframe, call = match.call())
 class(result) <- "homals"
 result
 }

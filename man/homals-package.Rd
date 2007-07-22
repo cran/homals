@@ -9,8 +9,8 @@
 \tabular{ll}{
 Package: \tab homals\cr
 Type: \tab Package\cr
-Version: \tab 0.9-5\cr
-Date: \tab 2007-06-27\cr
+Version: \tab 0.9-7\cr
+Date: \tab 2007-07-22\cr
 License: \tab GPL\cr
 URL: \tab \url{http://r-forge.r-project.org/projects/psychor/}\cr
 }

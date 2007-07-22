@@ -92,7 +92,7 @@ if (plot.type == "jointplot") {
   catleg <- NULL
   for (j in var.subset)
   {
-    text(x$catscores[[j]][,c(pd1,pd2)], labels = rownames(x$catscores[[j]]), col = catcol[j])
+    text(x$catscores[[j]][,c(pd1,pd2)], labels = rownames(x$catscores[[j]]), col = catcol[j], cex = 0.8)
     catleg <- c(catleg, catcol[j])
   }
   legend(leg.pos,colnames(x$dframe)[var.subset], col = catleg, pch = 22)
@@ -121,7 +121,7 @@ if (plot.type == "graphplot") {
   varnames <- rep(colnames(x$dframe),repvec)
   rownames(dmat) <- paste(varnames, rownames(dmat))
   xycoor <- rbind(dmat, x$objscores[,c(pd1,pd2)])
-  identify(xycoor, labels = rownames(xycoor))
+  identify(xycoor, labels = rownames(xycoor), cex = 0.7)
 }
 
 #----------------------------------end graphplot--------------------------------
@@ -347,9 +347,9 @@ if (plot.type == "trfplot") {
      if (missing(main)) main1 <- paste("Transformation plot for", colnames(x$dframe[i])) else main1 <- main
      if (missing(ylim)) ylim1 <- range(x$low.rank[[i]]) else ylim1 <- ylim
      
-     p <- dim(x$low.rank[[i]])[2]          #number of dimensions
-     vlev <- levels(x$dframe[,i])
-     
+     p <- dim(x$low.rank[[i]])[2]                           #number of dimensions
+     vlev <- rownames(x$low.rank[[1]])
+       
      par("ask" = TRUE)                     #first dimensions
      matplot(x$low.rank[[i]], type = type, main = main1, ylim = ylim1, xlab = xlab, 
             ylab = ylab, xaxt = "n", pch = 20, col = 1:p, lty = 1:p,...)
