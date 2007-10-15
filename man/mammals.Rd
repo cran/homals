@@ -1,31 +1,42 @@
 \name{mammals}
 \alias{mammals}
+
 \docType{data}
-\title{mammals}
+\title{Mammals dataset}
 \description{
-  List of mammals categorized by dental properties.
+  Dentition of mammals.
 }
-\usage{data(mammals)}
+\usage{mammals}
 \format{
-  A data frame with 66 observations on the following 8 variables.
-  \describe{
-    \item{topincisors}{a numeric vector}
-    \item{bottomincisors}{a numeric vector}
-    \item{topcanines}{a numeric vector}
-    \item{bottomcanines}{a numeric vector}
-    \item{toppremolars}{a numeric vector}
-    \item{bottompremolars}{a numeric vector}
-    \item{topmolars}{a numeric vector}
-    \item{bottommolars}{a numeric vector}
-  }
+  A data frame with the tooth pattern, the number of top incisors, bottom incisors, top canines, bottom canines,
+  top premolars, bottom premolars, top molars, and bottom molars.
+  
+  - top incisors: (1) zero incisors; (2) one incisor;  (3) two incisors; (4) three or more incisors.
+
+  - bottom incisors: (1) zero incisors; (2) one incisor; (3) two incisors; (4) three incisors; (5) four
+incisors. 
+
+  - top canine: (1) zero canines; (2) one canine.
+  
+  - bottom canine: (1) zero canines; (2) one canine.
+  
+  - top premolar (1) zero premolars; (2) one premolar; (3) two premolars; (3) two premolars; (4)
+three premolars; (5) four premolars.
+
+  - bottom premolar: (1) zero premolars; (2) one premolar; (3) two premolars; (3) two premolars;
+(4) three premolars; (5) four premolars.
+
+  - top molar: (1) zero, one or two molars; (2) more than two molars.
+  
+  - bottom molar: (1) zero, one or two molars; (2) more than two molars.
 }
-\source{
-  Clustering Algorithms, New York, Wiley, 1975, Table 9.1
-}
+
+
 \references{
-  J.A. Hartigan
+Hartigan, J.A. (1975). Clustering Algorithms. New York: Wiley.
 }
 \examples{
-data(mammals)
+   data(mammals)
+   mammals
 }
 \keyword{datasets}

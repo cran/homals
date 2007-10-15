@@ -1,29 +1,36 @@
 \name{hartigan}
 \alias{hartigan}
+
 \docType{data}
-\title{Hartigan Data}
+\title{Hartigan's Hardware}
 \description{
-  Hartigan Data
+  A number of bolts, nails, screws, and tacks are classified according to a 
+  number of criteria.
 }
-\usage{data(hartigan)}
+\usage{hartigan}
 \format{
-  A data frame with 24 observations on the following 6 variables.
-  \describe{
-    \item{thread}{a factor with levels \code{N} \code{Y}}
-    \item{head}{a factor with levels \code{C} \code{F} \code{O} \code{R} \code{Y}}
-    \item{indentation}{a factor with levels \code{L} \code{N} \code{T}}
-    \item{bottom}{a factor with levels \code{F} \code{S}}
-    \item{length}{a numeric vector}
-    \item{brass}{a factor with levels \code{N} \code{Y}}
-  }
+  A data frame with the following variables and categories:
+  
+  Thread: Y = Yes, N = No
+  
+  Head: F = Flat, C = Cup, O = Cone, R = Round, Y = Cylinder
+  
+  Head indentation: N = None, T = Star, L = Slit
+  
+  Bottom: S = Sharp, F = Flat
+  
+  Length: (in half inches)
+  
+  Brass: Y = Yes, N = No
 }
-\source{
-  Clustering Algorithms, New York, Wiley, 1975, Table 12.7
-}
+
 \references{
-  J.A. Hartigan
+Hartigan, J.A. (1975). Clustering Algorithms. New York: Wiley.
 }
+
+
 \examples{
-data(hartigan)
+   data(hartigan)
+   hartigan
 }
 \keyword{datasets}

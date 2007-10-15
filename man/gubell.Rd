@@ -1,12 +1,24 @@
 \name{gubell}
-\docType{data}
 \alias{gubell}
-\title{Gubell Data}
+
+\docType{data}
+\title{Guttman-Bell dataset}
 \description{
- gubell data.
+  This dataset deals with attitudes of social groups.
 }
-\usage{data(gubell)}
-\format{A table containing n observations.}
-\source{unknown}
-\references{}
+\usage{gubell}
+\format{
+  The data frame consists of 7 objects and 5 variables with a total of 17 categories.
+}
+
+\references{
+Guttman, L. (1968), A General Nonmetric Technique for Fitting the Smallest Coordinate Space for a Configuration
+of Points, Psychometrika, 33, 469-506.
+}
+
+
+\examples{
+   data(gubell)
+   gubell
+}
 \keyword{datasets}

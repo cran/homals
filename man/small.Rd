@@ -1,12 +1,23 @@
 \name{small}
-\docType{data}
 \alias{small}
-\title{Small Data}
+
+\docType{data}
+\title{Small dataset}
 \description{
- small data.
+  A small artifical dataset.
 }
-\usage{data(small)}
-\format{A table containing n observations.}
-\source{unknown}
-\references{}
+\usage{small}
+\format{
+  A data frame with 3 variables each of them has 3 categories.
+}
+
+\references{
+Gifi, A. (1990). Nonlinear Multivariate Analysis: Wiley.
+}
+
+
+\examples{
+   data(small)
+   small
+}
 \keyword{datasets}

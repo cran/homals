@@ -1,0 +1,14 @@
+import("stats", "graphics", "rgl", "scatterplot3d")
+export(homals)
+export(plot3dstatic)
+
+S3method(print, homals)
+S3method(summary, homals)
+S3method(plot, homals)
+S3method(plot3d, homals)
+S3method(predict, homals)
+S3method(print, predict.homals)
+S3method(summary, predict.homals)
+S3method(plot3dstatic, homals)
+
+
