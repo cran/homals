@@ -25,7 +25,7 @@ xlab, ylab, zlab, xlim, ylim, zlim, ...)
   \item{plot.type}{String indicating which type of plot to be produced: \code{"jointplot"}, \code{"catplot"} 
   \code{"labplot"}, \code{"objplot"}, \code{"starplot"}, \code{"graphplot"}, \code{"hullplot"},
   \code{"lossplot"}, \code{"prjplot"}, \code{"spanplot"}, , \code{"trfplot"}, \code{"vecplot"}, 
-  \code{"vorplot"} (Not all of these are provided as 3d-plots, see below).}
+  \code{"vorplot"}, \code{"loadplot"} (Not all of these are provided as 3d-plots, see below).}
   \item{var.subset}{Numeric vector for subsetting variables to be plotted. If missing, all
   variables are taken into account. Ignored for non separate variable plots.} 
   \item{main}{Plot title.}
@@ -42,7 +42,8 @@ xlab, ylab, zlab, xlim, ylim, zlim, ...)
   \item{sphere}{Whether 3D-sphere should be drawn.}
   \item{bgpng}{Background image in /library/rgl/textures/. If \code{NULL}, blank background.}
   \item{ax.grid}{If \code{TRUE} grid is drawn.}
-  \item{\dots}{Further plot arguments passed: see \code{plot}, \code{plot3d()} in package \code{rgl}, and \code{scatterplot3d()} in package \code{scatterplot3d} for detailed information.}
+  \item{\dots}{Further plot arguments passed: see \code{\link[graphics]{plot}}, \code{\link[rgl]{plot3d}} in package \code{rgl}, and \code{\link[scatterplot3d]{scatterplot3d}} in package \code{scatterplot3d} for detailed information.
+}
 }
 \details{Plot description:
  
@@ -75,7 +76,7 @@ are connected with the category centroid. Three-dimensional version is provided.
 - Loss plot (\code{plot.type = "lossplot"}): Plots the rank-restricted category quantifications against the
 unrestricted for each variable separately.
 
-- Projection plot (\code{plot.type = "prjplot"}): For variables of rank 1 the category scores (two-dimensional)
+- Projection plot (\code{plot.type = "prjplot"}): For variables of rank 1 the object scores (two-dimensional)
 are projected onto a straight line determined by the rank restricted category quantifications.
 
 - Vector plot (\code{plot.type = "vecplot"}): For variable of rank 1 the object scores (two-dimensional) are
@@ -83,6 +84,8 @@ projected onto a straight line determined by the rank restricted category quanti
 
 - Transformation plot (\code{plot.type = "trfplot"}): Plots the original (categorical) scale against the
 transformed (metric) scale on each dimension over the categories of each variable separately.
+
+- Loadings plot (\code{plot.type = "loadplot"}): Plots the loadings of the variables and connects them with the origin. Three-dimensional version is available.
 }
 
 \seealso{\code{\link{homals}}}

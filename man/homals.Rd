@@ -11,7 +11,7 @@
 }
 \usage{
 homals(dframe, sets = 0, ndim = 2, active = TRUE, rank = ndim, level = "nominal", 
-       eps1 = 1e-06, eps2 = 1e-06, itermax = 100)
+       eps = 1e-06, itermax = 100, verbose = 0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,9 +24,9 @@ homals(dframe, sets = 0, ndim = 2, active = TRUE, rank = ndim, level = "nominal"
   \code{"ordinal"}, \code{"numerical"}, and \code{"polynomial"} which can be defined as single 
   character (if all variable are of the same level) or as vector which length corresponds to the
   number of variables.} 
-  \item{eps1}{Iteration precision eigenvalues.}
-  \item{eps2}{Iteration precision eigenvectors.}
+  \item{eps}{Iteration precision eigenvalues.}
   \item{itermax}{Maximum number of iterations.}
+  \item{verbose}{0 for no iteration output, 1 prints outer iterations, 2 prints outer and inner iterations, 3 prints outer and inner and innermost iterations.}
 }
 \details{
   The general idea of homogeneity analysis is to make a joint plot in p-space of all
@@ -65,9 +65,12 @@ homals(dframe, sets = 0, ndim = 2, active = TRUE, rank = ndim, level = "nominal"
   \item{cat.centroids}{List of category centroids.}
   \item{cat.loadings}{List of category loadings.}
   \item{low.rank}{List of lower rank quantifications.}
+  \item{active}{Vector with active/inactive variables.}
 }
 \references{
-Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley. 
+de Leeuw, J., \& Mair, P. (2007). Homogeneity analysis in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
+
+Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
 }
 \author{Jan de Leeuw, Patrick Mair}
 \seealso{\code{\link{plot.homals}}}
@@ -92,5 +95,14 @@ Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
   
   ##regression (monotone)
   res <- homals(neumann, sets = list(3, 1:2), level = "ordinal", rank = 1)
+  
+  ##3-dimensional senate solution
+  data(senate)
+  res <- homals(senate, active = c(FALSE, rep(TRUE, 20)), ndim = 3)
+  
+  ##Predicting Species in iris dataset (polynomial level constraints for predictors)
+  data(iris)
+  res <- homals(iris, sets = list(1:4,5), level = c(rep("polynomial",4),"nominal"), rank = 2, itermax = 1000)
+
 }
 \keyword{models}

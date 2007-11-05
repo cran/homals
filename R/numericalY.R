@@ -1,5 +1,5 @@
 `numericalY` <-
-function(d,y,r) {
+function(d,y,r,verbose=0) {
   z0<-orthogonalPolynomials(d,1:length(d),1)
   a0<-as.vector(crossprod(z0*d,y))
   if (r == 1)

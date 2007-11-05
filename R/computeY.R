@@ -1,3 +1,3 @@
 `computeY` <-
-function(g,x) apply(x, 2, function(z) tapply(z,g,mean))
+function(g,x) apply(cbind(x), 2, function(z) tapply(z,g,mean))
 

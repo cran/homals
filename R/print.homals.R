@@ -8,15 +8,12 @@ function(x, ...)
   names(eigen.val) <- paste("D",1:x$ndim,sep="")
   print(eigen.val)
   cat("\n")
- 
   
- # cat("\n\nRank-restricted Category Quantifications:")
- # for (i in 1:nvar)
- # {
- #   rcq <- round(x$rank.cat[[i]], 4)
- #   cat("\n",colnames(x$dframe[i]),":\n",sep="")
- #   print(rcq)
- # }  
- # cat("\n")
+  loadmat <- t(sapply(x$cat.loadings, function(xx) (xx[1,])))
+  if (x$ndim == 1) loadmat <- t(loadmat)
+  colnames(loadmat) <- paste("D", 1:x$ndim, sep = "")
+  cat("Loadings (first solution only):\n")
+  print(loadmat)
+  cat("\n")
 }
 

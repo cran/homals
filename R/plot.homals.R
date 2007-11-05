@@ -7,8 +7,9 @@ function(x, plot.dim = c(1,2), plot.type, var.subset, main, type, xlab, ylab,
 #plot.dim ... vector of length 2 with dimensions to be plotted against
 #plot.type ... type of plot to be drawn: "catplot","graphplot","hullplot","labplot",
 #              "lossplot","objplot","prjplot","spanplot","starplot", "trfplot", 
-#              "vecplot","vorplot", "jointplot".
+#              "vecplot","vorplot", "jointplot","loadplot".
 #var.subset ... numeric vector with subset of variables
+
 
 
 
@@ -28,6 +29,25 @@ if (plot.type != "trfplot") {      #plot.dim are ignored for trfplot
 nvar <- dim(x$dframe)[2]
 if (missing(var.subset)) var.subset <- 1:nvar
    
+
+#----------------------------------loadplot-------------------------------------
+if (plot.type == "loadplot") {
+  xycoor <- t(sapply(x$cat.loadings, function(xy) xy[1,c(pd1,pd2)]))
+  if (missing(main)) main1 <- "Loadings plot" else main1 <- main
+  xlim.min <- min(xycoor[,1],0)
+  xlim.max <- max(xycoor[,1],0)
+  ylim.min <- min(xycoor[,2],0)
+  ylim.max <- max(xycoor[,2],0)
+  if (missing(xlim)) xlim <- c(xlim.min,xlim.max)*1.2
+  if (missing(ylim)) ylim <- c(ylim.min,ylim.max)*1.2
+  plot(xycoor,type = "p", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1,...)
+
+  for (i in 1:nvar) lines(rbind(xycoor[i,],c(0,0)),...)
+  identify(xycoor, labels = rownames(xycoor))
+}
+#-------------------------------- end loadplot ---------------------------------
+
+
 
 
 #----------------------------------catplot--------------------------------------
@@ -84,15 +104,17 @@ if (plot.type == "jointplot") {
 if (plot.type == "graphplot") {
 
   if (missing(main)) main <- "Graphplot"
-  plot(x$scores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main, xlab = xlab, ylab = ylab, ...)           #draw scores
+  if (missing(xlim)) xlim <- range(x$scores[,pd1])*1.2
+  if (missing(ylim)) ylim <- range(x$scores[,pd2])*1.2
+  plot(x$scores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim,...)           #draw scores
 
   dmat <- NULL
   for (j in 1:ncol(x$dframe))
   {
-	  y <- computeY(x$dframe[,j], x$scores[,c(pd1,pd2)])
-	  dmat <- rbind(dmat, y)
+    y <- computeY(x$dframe[,j], x$scores[,c(pd1,pd2)])
+    dmat <- rbind(dmat, y)
     points(y, col = "RED", pch = 16)                             #insert points
-	  for (i in 1:nrow(x$dframe))
+    for (i in 1:nrow(x$dframe))
       lines(rbind(x$scores[i,c(pd1,pd2)], y[x$dframe[i,j],]))                #insert lines
   }
   repvec <- sapply(x$rank.cat, function(yy) dim(yy)[1])
@@ -148,7 +170,7 @@ if (plot.type == "lossplot") {
   
   for (i in var.subset) { 
     
-    if (missing(main)) main1 <- paste("Lossplot for",colnames(x$dframe[i])) 
+    if (missing(main)) main1 <- paste("Lossplot for",colnames(x$dframe[i])) else main1 <- main
     
     z <- computeY(x$dframe[,i], x$scores[,c(pd1,pd2)])
     k <- dim(z)[1]
@@ -317,21 +339,21 @@ if (plot.type == "vecplot") {
 if (plot.type == "trfplot") {
 
    if (missing(type)) type <- "b"
-   if (missing(xlab)) xlab <- "original"
-   if (missing(ylab)) ylab <- "transformed"
+   if (missing(xlab)) xlab <- "original scale"
+   if (missing(ylab)) ylab <- "transformed scale"
 
    for (i in var.subset) {
      
      if (missing(main)) main1 <- paste("Transformation plot for", colnames(x$dframe[i])) else main1 <- main
-     if (missing(ylim)) ylim1 <- range(x$rank.cat[[i]]) else ylim1 <- ylim
+     if (missing(ylim)) ylim1 <- range(x$low.rank[[i]]) else ylim1 <- ylim
      
-     p <- dim(x$rank.cat[[i]])[2]          #number of dimensions
+     p <- dim(x$low.rank[[i]])[2]          #number of dimensions
      vlev <- levels(x$dframe[,i])
      
      par("ask" = TRUE)                     #first dimensions
-     matplot(x$rank.cat[[i]], type = type, main = main1, ylim = ylim1, xlab = xlab, 
-            ylab = xlab, xaxt = "n", col = 1:p, lty = 1:p, pch = 20, ...)
-     legend(leg.pos,paste("Dimension",1:p), col = 1:p, lty = 1:p,...)
+     matplot(x$low.rank[[i]], type = type, main = main1, ylim = ylim1, xlab = xlab, 
+            ylab = ylab, xaxt = "n", pch = 20, col = 1:p, lty = 1:p,...)
+     if (p != 1) legend(leg.pos,paste("Solution",1:p),col = 1:p, lty = 1:p,...)
      axis(1, at = 1:length(vlev), labels = vlev)
      
    }

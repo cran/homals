@@ -14,9 +14,10 @@
 \tabular{ll}{
 Package: \tab homals\cr
 Type: \tab Package\cr
-Version: \tab 0.9-0\cr
-Date: \tab 2007-10-15\cr
+Version: \tab 0.9-3\cr
+Date: \tab 2007-10-29\cr
 License: \tab GPL\cr
+URL: \tab \url{http://r-forge.r-project.org/projects/psychor/}\cr
 }
 The basic function of the homals package is \code{homals(data)} which performs 
 homogeneity analysis and returns an object of class \code{"homals"}. It allows for 
@@ -29,6 +30,8 @@ Jan de Leeuw, Patrick Mair
 Maintainer: Jan de Leeuw <deleeuw@ucla.edu>
 }
 \references{
+de Leeuw, J., \& Mair, P. (2007). Homogeneity analysis in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
+
 Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley. 
 }
 

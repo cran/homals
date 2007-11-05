@@ -1,5 +1,5 @@
 totalLoss<-function(dframe,x,y,active,rank,level,sets){
-  nobj<-dim(x)[1]; ndim<-dim(x)[2]; nset<-length(sets);	loss=0.0
+  nobj<-nrow(x); ndim<-ncol(x); nset<-length(sets);	loss=0.0
   for (l in 1:nset) {
   	indi<-sets[[l]]; jndi<-indi[which(active[indi])]
     if (length(jndi) == 0) next()

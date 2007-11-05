@@ -1,10 +1,10 @@
 `restrictY` <-
-function(d,y,r,level) {
+function(d,y,r,level,verbose=0) {
   if (sum(y^2) == 0) return(y)
   switch(level,
-  "nominal"=return(nominalY(d,y,r)),
-  "ordinal"=return(ordinalY(d,y,r)),
-  "numerical"=return(numericalY(d,y,r)),
-  "polynomial"=return(polynomialY(d,y,r)))
+  "nominal"=return(nominalY(d,y,r,verbose=verbose)),
+  "ordinal"=return(ordinalY(d,y,r,verbose=verbose)),
+  "numerical"=return(numericalY(d,y,r,verbose=verbose)),
+  "polynomial"=return(polynomialY(d,y,r,verbose=verbose)))
 }
 

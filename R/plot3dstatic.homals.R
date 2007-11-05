@@ -38,6 +38,22 @@ if (plot.type == "objplot") {
 }
 #----------------------------- end object plot ---------------------------------
 
+#----------------------------------loadplot-------------------------------------
+if (plot.type == "loadplot") {
+  xycoor <- t(sapply(x$cat.loadings, function(xy) xy[1,c(pd1,pd2,pd3)]))  #first solution only
+  if (missing(main)) main1 <- "Loadings plot" else main1 <- main
+ 
+  pr <- scatterplot3d(xycoor,  main = main1, xlab = xlab, ylab = ylab, zlab = zlab, type = "n",...)
+  pr$points3d(xycoor, col = "RED")
+
+  for (i in 1:nvar) 
+    pr$points3d(rbind(xycoor[i,c(pd1,pd2,pd3)],c(0,0,0)), col = "BLUE", type="l", lty=1)
+  identify(pr$xyz.convert(xycoor), labels = rownames(xycoor), col = "RED")
+    
+}
+#-------------------------------- end loadplot ---------------------------------
+
+
 #--------------------------------------labplot----------------------------------
 #plot labeled object scores (for each variable separately)
 
