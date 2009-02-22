@@ -1,5 +1,5 @@
 `plot3d.homals` <-
-function(x, plot.dim = c(1,2,3), plot.type, var.subset, type, xlab, ylab, zlab, col, main, sphere = TRUE, 
+function(x, plot.dim = c(1,2,3), plot.type = "jointplot", var.subset, type, xlab, ylab, zlab, col, main, sphere = TRUE, 
          bgpng = "particle.png", ax.grid = TRUE, ...)
 {
 #S3 plot method for objects of class "homals"
@@ -50,7 +50,7 @@ if (plot.type == "objplot")
 
 #----------------------------------loadplot-------------------------------------
 if (plot.type == "loadplot") {
-  xycoor <- t(sapply(x$cat.loadings, function(xy) xy[1,c(pd1,pd2,pd3)]))  #first solution only
+  xycoor <- t(sapply(x$loadings, function(xy) xy[1,c(pd1,pd2,pd3)]))  #first solution only
   if (missing(main)) main1 <- "Loadings plot" else main1 <- main
  
   rgl.open()

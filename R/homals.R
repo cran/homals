@@ -37,9 +37,9 @@ varcheck <- apply(dframe, 2, function(tl) length(table(tl)))
 if (any(varcheck == 1)) stop("Variable with only 1 value detected! Can't proceed with estimation!")
 #-----------------------------parameter consistency-----------------------------
 
-active<-checkPars(active,nvar)
-rank<-checkPars(rank,nvar)
-level<-checkPars(level,nvar)
+active <- checkPars(active,nvar)
+rank <- checkPars(rank,nvar)
+level <- checkPars(level,nvar)
 
 if (length(sets) == 1) sets <- lapply(1:nvar,"c")
 if (!all(sort(unlist(sets)) == (1:nvar))) {
@@ -68,7 +68,9 @@ for (j in 1:nvar) {
 #----------------initialize scores and counters-----------------------------
 
 x <- cbind(orthogonalPolynomials(mis,1:nobj,ndim))
-x <- normX(centerX(x,mis),mis)$q
+#x <- normX(centerX(x,mis),mis)$q
+x <- normX(centerX(x,mis),mis)$q*sqrt(nobj*nvar)           #norm to X'MX=nmI --> X are z-scores
+
 y <- lapply(1:nvar, function(j) computeY(dframe[,j],x))
 y <- updateY(dframe,x,y,active,rank,level,sets)
 sold <- totalLoss(dframe,x,y,active,rank,level,sets)
@@ -81,8 +83,8 @@ repeat {
 	y<-updateY(dframe,x,y,active,rank,level,sets,verbose=verbose)
 	smid <- totalLoss(dframe,x,y,active,rank,level,sets)
 	ssum <- totalSum(dframe,x,y,active,rank,level,sets)
-	qv <- normX(centerX((1/mis)*ssum,mis),mis)
-	z <- qv$q
+        qv <- normX(centerX((1/mis)*ssum,mis),mis)
+	z <- qv$q*sqrt(nobj*nvar)                                   #norm to var = 1 
 	snew<-totalLoss(dframe,z,y,active,rank,level,sets)
 	if (verbose > 0) cat("Itel:",formatC(iter,digits=3,width=3),"Loss Total: ", formatC(c(sold,smid,snew),digits=6,width=9,format="f"),"\n")
 	r <- qv$r
@@ -164,11 +166,17 @@ for (i in 1:ndim) {
                       } ))
 }
 
-#--------------------------end preparing/labeling output------------------------
+#----------------------- discrimination measures ---------------------------
+disc.mat <- apply(scoremat, 3, function(xx) {                                  #matrix with discrimination measures
+                  apply(xx, 2, function(cols) {
+                    (sum(cols^2, na.rm = TRUE))/nobj
+                    })})
+
+#---------------------- end discrimination measures ------------------------
 
 result <- list(datname = name, catscores = ylist, scoremat = scoremat, objscores = z, 
-               cat.centroids = clist, ind.mat = dummymat01, cat.loadings = alist, 
-               low.rank = ulist, ndim = ndim, niter = iter, level = level, 
+               cat.centroids = clist, ind.mat = dummymat01, loadings = alist, 
+               low.rank = ulist, discrim = disc.mat, ndim = ndim, niter = iter, level = level, 
                eigenvalues = r, loss = snew, rank.vec = rank, active = active, dframe = dframe, call = match.call())
 class(result) <- "homals"
 result

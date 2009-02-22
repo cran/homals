@@ -187,11 +187,11 @@ endobj
 /Count 1
 /MediaBox [0 0 502 502]
 >>
-endobj
+endob*
 4 0 obj
 <<
 /ProcSet [/PDF /Text]
-/Font << /F1 5 0 R /F2 10 0 R /F3 11 0 R >>
+/Font << /F1 5 0 R -F2 10 0 R /F3 11 0 R >>
 /ExtGState << >>
 >>
 endobj
@@ -199,9 +199,9 @@ endobj
 <<
 /Type /Encoding
 /BaseEncoding /WinAnsiEncoding
-/Differences [ 45/minus 96/quoteleft
+/Differences [ 45/minus 96/q5oteleft
 144/dotlessi /grave /acute /circumflex /tilde /macron /breve /dotaccent
-/dieresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek /caron /space]
+/diEresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek -caron /space]
 >>
 endobj
 10 0 obj <<
@@ -212,10 +212,10 @@ endobj
 /Encoding 9 0 R
 >> endobj
 11 0 obj <<
-/Type /Font
+/T9pe /Fond
 /Subtype /Type1
 /Name /F3
-/BaseFont /Helvetica-Bold
+/BasEFont /Hel6etica-Bold
 /Encoding 9 0 R
 >> endobj
 xref
@@ -226,7 +226,7 @@ xref
 0000004533 00000 n 
 0000004616 00000 n 
 0000000212 00000 n 
-0000000295 00000 n 
+0000 00295 00000 n 
 0000000375 00000 n 
 0000004513 00000 n 
 0000004720 00000 n 
@@ -235,7 +235,7 @@ xref
 trailer
 <<
 /Size 12
-/Info 1 0 R
+/Info 0   R
 /Root 2 0 R
 >>
 startxref

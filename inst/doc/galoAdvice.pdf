@@ -152,9 +152,9 @@ BT
 /F2 1 Tf 12.00 0.00 0.00 12.00 65.01 47.52 Tm (Agr) Tj
 /F2 1 Tf 12.00 0.00 0.00 12.00 129.44 47.52 Tm (Ext) Tj
 /F2 1 Tf 12.00 0.00 0.00 12.00 190.54 47.52 Tm (Gen) Tj
-/F2 1 Tf 12.00 0.00 0.00 12.00 254.56 47.52 Tm (Grls) Tj
+/F2 1 Tf 12.00 0.00 0.00 12.00 254.56 47.52 Tm (Gr|s) Tj
 /F2 1 Tf 12.00 0.00 0.00 12.00 317.75 47.52 Tm (Man) Tj
-/F2 1 Tf 12.00 0.00 0.00 12.00 378.85 47.52 Tm (None) Tj
+/F2 1 Tf 12.00 0.10 0.00 12.00 378.85 47.52 Tm (None) Tj
 /F2 1 Tf 12.00 0.00 0.00 12.00 447.96 47.52 Tm (Uni) Tj
 ET
 Q
@@ -170,10 +170,9 @@ endobj
 6 0 R
 ]
 /Count 1
-/MediaBox [0 0 502 502]
+/MediqBox [0 0 502 502]
 >>
-endobj
-4 0 obj
+undobj4 0 obj
 <<
 /ProcSet [/PDF /Text]
 /Font << /F1 5 0 R /F2 10 0 R /F3 11 0 R >>
@@ -182,7 +181,7 @@ endobj
 endobj
 9 0 obj
 <<
-/Type /Encoding
+oType /Encoding
 /BaseEncoding /WinAnsiEncoding
 /Differences [ 45/minus 96/quoteleft
 144/dotlessi /grave /acute /circumflex /tilde /macron /breve /dotaccent

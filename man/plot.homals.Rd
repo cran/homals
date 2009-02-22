@@ -8,13 +8,13 @@
 \description{These methods provide various 2D and 3D plots for objects of class \code{"homals"}.
 }
 \usage{
-\method{plot}{homals}(x, plot.dim = c(1, 2), plot.type, var.subset, main, type, xlab, ylab, xlim, ylim, 
+\method{plot}{homals}(x, plot.dim = c(1, 2), plot.type = "jointplot", var.subset, main, type, xlab, ylab, xlim, ylim, 
 leg.pos = "topright", ...)
 
-\method{plot3d}{homals}(x, plot.dim = c(1, 2, 3), plot.type, var.subset, type, xlab, ylab, 
+\method{plot3d}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, type, xlab, ylab, 
 zlab, col, main, sphere = TRUE, bgpng = "particle.png", ax.grid = TRUE, ...)
 
-\method{plot3dstatic}{homals}(x, plot.dim = c(1, 2, 3), plot.type, var.subset, main, type, 
+\method{plot3dstatic}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, main, type, 
 xlab, ylab, zlab, xlim, ylim, zlim, ...)
 
 }
@@ -25,7 +25,7 @@ xlab, ylab, zlab, xlim, ylim, zlim, ...)
   \item{plot.type}{String indicating which type of plot to be produced: \code{"jointplot"}, \code{"catplot"} 
   \code{"labplot"}, \code{"objplot"}, \code{"starplot"}, \code{"graphplot"}, \code{"hullplot"},
   \code{"lossplot"}, \code{"prjplot"}, \code{"spanplot"}, , \code{"trfplot"}, \code{"vecplot"}, 
-  \code{"vorplot"}, \code{"loadplot"} (Not all of these are provided as 3d-plots, see below).}
+  \code{"vorplot"}, \code{"loadplot"}, \code{"screeplot"}, \code{"dmplot"} (Not all of these are provided as 3d-plots, see below).}
   \item{var.subset}{Numeric vector for subsetting variables to be plotted. If missing, all
   variables are taken into account. Ignored for non separate variable plots.} 
   \item{main}{Plot title.}
@@ -86,6 +86,10 @@ projected onto a straight line determined by the rank restricted category quanti
 transformed (metric) scale on each dimension over the categories of each variable separately.
 
 - Loadings plot (\code{plot.type = "loadplot"}): Plots the loadings of the variables and connects them with the origin. Three-dimensional version is available.
+
+- Scree plot (\code{plot.type = "screeplot"}): Produces a scree plot based on the eigenvalues. 
+
+- Discrimination measures (\code{plot.type = "dmplot"}): Plots the discrimination measures for each variable. 
 }
 
 \seealso{\code{\link{homals}}}

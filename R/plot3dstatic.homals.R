@@ -1,4 +1,4 @@
-plot3dstatic.homals <- function(x, plot.dim = c(1,2,3), plot.type, var.subset, 
+plot3dstatic.homals <- function(x, plot.dim = c(1,2,3), plot.type = "jointplot", var.subset, 
                                  main, type, xlab, ylab, zlab, xlim, ylim, zlim, ...)
 {
 #produces static 3D-scatterplot
@@ -40,7 +40,7 @@ if (plot.type == "objplot") {
 
 #----------------------------------loadplot-------------------------------------
 if (plot.type == "loadplot") {
-  xycoor <- t(sapply(x$cat.loadings, function(xy) xy[1,c(pd1,pd2,pd3)]))  #first solution only
+  xycoor <- t(sapply(x$loadings, function(xy) xy[1,c(pd1,pd2,pd3)]))  #first solution only
   if (missing(main)) main1 <- "Loadings plot" else main1 <- main
  
   pr <- scatterplot3d(xycoor,  main = main1, xlab = xlab, ylab = ylab, zlab = zlab, type = "n",...)

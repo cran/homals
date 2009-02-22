@@ -58,8 +58,9 @@ homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,
   \item{objscores}{Matrix with object scores on each dimension.}
   \item{cat.centroids}{List of category centroids.}
   \item{ind.mat}{Dummy coded indicator matrix.}
-  \item{cat.loadings}{List of category loadings.}
+  \item{loadings}{List of loadings of the variables on each dimension.}
   \item{low.rank}{List of lower rank quantifications.}
+  \item{discrim}{Matrix with discrimination measures for each variable on each dimension.}
   \item{niter}{Number of iterations.}
   \item{eigenvalues}{Final eigenvalues.}
   \item{loss}{Value of the loss function.}
@@ -67,7 +68,7 @@ homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,
   \item{active}{Vector with active/inactive variables.}
 }
 \references{
-de Leeuw, J., \& Mair, P. (2007). Homogeneity analysis in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
+de Leeuw, J., \& Mair, P. (2007). Gifi models in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
 
 Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
 }
