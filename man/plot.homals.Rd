@@ -9,7 +9,7 @@
 }
 \usage{
 \method{plot}{homals}(x, plot.dim = c(1, 2), plot.type = "jointplot", var.subset, main, type, xlab, ylab, xlim, ylim, 
-leg.pos = "topright", ...)
+leg.pos = "topright", identify = TRUE, ...)
 
 \method{plot3d}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, type, xlab, ylab, 
 zlab, col, main, sphere = TRUE, bgpng = "particle.png", ax.grid = TRUE, ...)
@@ -39,6 +39,7 @@ xlab, ylab, zlab, xlim, ylim, zlim, ...)
   \item{zlim}{Limits for z-axis.}
   \item{leg.pos}{Position of the legend (for \code{"trfplot"} and \code{"spanplot"} only) 
   as provided in \code{\link{legend}}.}
+  \item{identify}{If \code{TRUE}, interactive plots are provided.}
   \item{sphere}{Whether 3D-sphere should be drawn.}
   \item{bgpng}{Background image in /library/rgl/textures/. If \code{NULL}, blank background.}
   \item{ax.grid}{If \code{TRUE} grid is drawn.}

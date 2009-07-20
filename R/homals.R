@@ -1,8 +1,7 @@
 `homals` <-
-function(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,        
-         eps = 1e-6, itermax = 1000, verbose = 0)
+function(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE, 
+eps = 1e-6, itermax = 1000, verbose = 0)
 {
-
 #data ... data frame
 #sets ...  list of vectors of set indices 
 #level ... which measurement level (either single string or vector
@@ -80,23 +79,31 @@ iter <- pops <- 0
 
 repeat {
 	iter <- iter + 1
-	y<-updateY(dframe,x,y,active,rank,level,sets,verbose=verbose)
-	smid <- totalLoss(dframe,x,y,active,rank,level,sets)
-	ssum <- totalSum(dframe,x,y,active,rank,level,sets)
-        qv <- normX(centerX((1/mis)*ssum,mis),mis)
-	z <- qv$q*sqrt(nobj*nvar)                                   #norm to var = 1 
-	snew<-totalLoss(dframe,z,y,active,rank,level,sets)
-	if (verbose > 0) cat("Itel:",formatC(iter,digits=3,width=3),"Loss Total: ", formatC(c(sold,smid,snew),digits=6,width=9,format="f"),"\n")
-	r <- qv$r
+	y <- updateY(dframe,x,y,active,rank,level,sets,verbose=verbose)
+	smid <- totalLoss(dframe, x, y, active, rank, level, sets)
+	ssum <- totalSum(dframe, x, y, active, rank, level, sets)
+  qv <- normX(centerX((1/mis)*ssum,mis),mis)
+	#z <- qv$q
+  z <- qv$q*sqrt(nobj*nvar)                                   #norm to var = 1 
+  
+	snew <- totalLoss(dframe, z, y, active, rank, level, sets)
+	if (verbose > 0) cat("Iteration:",formatC(iter,digits=3,width=3),"Loss Value: ", formatC(c(smid),digits=6,width=6,format="f"),"\n")
+	
+  r <- qv$r                                                    #eigenvalues
+	ops <- sum(r)                                                #convergence criteria
+  aps <- sum(La.svd(crossprod(x,mis*z),0,0)$d)/ndim	
+
 	if (iter == itermax) {
 		stop("maximum number of iterations reached")
 		}
-	if (snew > sold) {
-		stop(cat("loss function increases in iteration ",iter,"\n"))
-		}
-	if ((sold - snew) < eps) break()
-		else {x <- z; sold <- snew}            #result: object scores
-	}
+	
+	#if (smid > sold) {
+	#	warning(cat("Loss function increases in iteration ",iter,"\n"))
+	#}
+
+	if ((ops - pops) < eps) break 
+		else {x <- z; pops <- ops; sold <- smid}	
+}
 
 #-----------------------------store final version--------------------------------
 
@@ -177,7 +184,7 @@ disc.mat <- apply(scoremat, 3, function(xx) {                                  #
 result <- list(datname = name, catscores = ylist, scoremat = scoremat, objscores = z, 
                cat.centroids = clist, ind.mat = dummymat01, loadings = alist, 
                low.rank = ulist, discrim = disc.mat, ndim = ndim, niter = iter, level = level, 
-               eigenvalues = r, loss = snew, rank.vec = rank, active = active, dframe = dframe, call = match.call())
+               eigenvalues = r, loss = smid, rank.vec = rank, active = active, dframe = dframe, call = match.call())
 class(result) <- "homals"
 result
 }

@@ -1,6 +1,6 @@
 `plot.homals` <-
 function(x, plot.dim = c(1,2), plot.type = "jointplot", var.subset, main, type, xlab, ylab, 
-         xlim, ylim, leg.pos = "topright", ...)
+         xlim, ylim, leg.pos = "topright", identify = TRUE, ...)
 {
 #S3 plot method for objects of class "homals"
 #Produces various 2D-plots
@@ -35,20 +35,26 @@ if (plot.type == "loadplot") {
   xycoor <- t(sapply(x$loadings, function(xy) xy[1,c(pd1,pd2)]))
   if (missing(main)) main1 <- "Loadings plot" else main1 <- main
 
-  #xlim.min <- min(xycoor[,1],0)
-  #xlim.max <- max(xycoor[,1],0)
-  #ylim.min <- min(xycoor[,2],0)
-  #ylim.max <- max(xycoor[,2],0)
-  #if (missing(xlim)) xlim <- c(xlim.min,xlim.max)*1.2
-  #if (missing(ylim)) ylim <- c(ylim.min,ylim.max)*1.2
+  xlim.min <- min(xycoor[,1],0)
+  xlim.max <- max(xycoor[,1],0)
+  ylim.min <- min(xycoor[,2],0)
+  ylim.max <- max(xycoor[,2],0)
+  if (missing(xlim)) xlim <- c(xlim.min,xlim.max)*1.2
+  if (missing(ylim)) ylim <- c(ylim.min,ylim.max)*1.2
 
-  if (missing(xlim)) xlim <- range(xycoor)*1.2
-  if (missing(ylim)) ylim <- range(xycoor)*1.2
+  #if (missing(xlim)) xlim <- range(xycoor)*1.2
+  #if (missing(ylim)) ylim <- range(xycoor)*1.2
   
-  plot(xycoor,type = "p", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1,...)
+  plot(xycoor,type = "p", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, ...)
 
-  for (i in 1:nvar) lines(rbind(xycoor[i,],c(0,0)),...)
-  identify(xycoor, labels = rownames(xycoor))
+  for (i in 1:nvar) lines(rbind(xycoor[i,],c(0,0)))
+  abline(h = 0, col = "lightgray", lty = 2)
+  abline(v = 0, col = "lightgray", lty = 2)
+  
+  
+  if (identify) identify(xycoor, labels = rownames(xycoor), cex = 0.7) 
+  else text(xycoor, labels = rownames(xycoor), pos = 3, cex = 0.7)
+  #
 }
 #-------------------------------- end loadplot ---------------------------------
 
@@ -80,17 +86,14 @@ if (plot.type == "catplot") {
 if (plot.type == "jointplot") {
   xylist <- lapply(x$catscores, apply, 2, range)         
   xytab <- sapply(xylist, function(yy) yy[,c(pd1,pd2)])
-  #xmin <- min(xytab[1,], x$objscores[,pd1])
-  #xmax <- max(xytab[2,], x$objscores[,pd1])
-  #ymin <- min(xytab[3,], x$objscores[,pd2])
-  #ymax <- max(xytab[4,], x$objscores[,pd2])
+  xmin <- min(xytab[1,], x$objscores[,pd1])
+  xmax <- max(xytab[2,], x$objscores[,pd1])
+  ymin <- min(xytab[3,], x$objscores[,pd2])
+  ymax <- max(xytab[4,], x$objscores[,pd2])
     
-  #if (missing(xlim)) xlim <- c(xmin, xmax)
-  #if (missing(ylim)) ylim <- c(ymin, ymax)
-
-  xylim <- c(as.vector(xytab), as.vector(x$objscores))
-  if (missing(xlim)) xlim <- range(xylim)
-  if (missing(ylim)) ylim <- range(xylim)
+  #xylim <- c(as.vector(xytab), as.vector(x$objscores))
+  if (missing(xlim)) xlim <- c(xmin, xmax)
+  if (missing(ylim)) ylim <- c(ymin, ymax)
   
   if (missing(main)) main <- "Joint Plot"
   plot(x$objscores[,c(pd1,pd2)], type = "n", main = main, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim, ...) 
@@ -112,8 +115,8 @@ if (plot.type == "jointplot") {
 if (plot.type == "graphplot") {
 
   if (missing(main)) main <- "Graphplot"
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])*1.2
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])*1.2
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])*1.2
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])*1.2
   plot(x$objscores[,c(pd1,pd2)], col = "GREEN", pch = 8, main = main, xlab = xlab, ylab = ylab, xlim = xlim, ylim = ylim,...)           #draw scores
 
   dmat <- NULL
@@ -129,7 +132,8 @@ if (plot.type == "graphplot") {
   varnames <- rep(colnames(x$dframe),repvec)
   rownames(dmat) <- paste(varnames, rownames(dmat))
   xycoor <- rbind(dmat, x$objscores[,c(pd1,pd2)])
-  identify(xycoor, labels = rownames(xycoor), cex = 0.7)
+  if (identify) { identify(xycoor, labels = rownames(xycoor), cex = 0.7)
+  } else { text(xycoor, labels = rownames(xycoor), cex = 0.7, pos = 3) }
 }
 
 #----------------------------------end graphplot--------------------------------
@@ -138,8 +142,8 @@ if (plot.type == "graphplot") {
 #plots the convex hulls
 if (plot.type == "hullplot") {
 
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
 
   for (i in var.subset) {
     
@@ -164,8 +168,8 @@ if (plot.type == "hullplot") {
 
 if (plot.type == "labplot") {
 
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Labplot for",colnames(x$dframe[i]))  else main1 <- main
@@ -186,8 +190,8 @@ if (plot.type == "lossplot") {
     z <- computeY(x$dframe[,i], x$objscores[,c(pd1,pd2)])
     k <- dim(z)[1]
     
-    if (missing(xlim)) xlim1 <- range(c(z[,2],x$catscores[[i]][,c(pd1,pd2)])) else xlim1 <- xlim
-    if (missing(ylim)) ylim1 <- range(c(z[,2],x$catscores[[i]][,c(pd1,pd2)])) else ylim1 <- ylim
+    if (missing(xlim)) xlim1 <- range(c(z[,2],x$catscores[[i]][,pd1])) else xlim1 <- xlim
+    if (missing(ylim)) ylim1 <- range(c(z[,2],x$catscores[[i]][,pd2])) else ylim1 <- ylim
     
     par("ask" = TRUE)
     plot(x$catscores[[i]][,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
@@ -210,8 +214,8 @@ if (plot.type == "lossplot") {
 
 if (plot.type == "objplot") {
     
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   if (missing(main)) main1 <- "Plot Object Scores" else main1 <- main
 
   plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
@@ -226,8 +230,8 @@ if (plot.type == "objplot") {
 
 if (plot.type == "prjplot") {
 
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   xylim <- c(min(xlim[1],ylim[1]),max(xlim[2],ylim[2]))
   
   for (i in var.subset) {
@@ -265,8 +269,8 @@ if (plot.type == "prjplot") {
 #-------------------------------------spanplot----------------------------------
 if (plot.type == "spanplot") {
 
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Span plot for", colnames(x$dframe[i])) else main1 <- main
@@ -284,7 +288,7 @@ if (plot.type == "spanplot") {
   		  sapply(jnd, function(r) lines(rbind(x$objscores[ind[j],c(pd1,pd2)], x$objscores[ind[r],c(pd1,pd2)]),
         col = rb[which(lev==k)]))
   		}
-  	 legend(leg.pos,paste("Category",lev), col = rb, lty = 1, ...)
+  	 legend(leg.pos,paste("Category",lev), col = rb, lty = 1)
     } 
   }
 }
@@ -294,8 +298,8 @@ if (plot.type == "spanplot") {
 #------------------------------------starplot-----------------------------------
 if (plot.type == "starplot") {
 
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   
   for (i in var.subset) {
     if (missing(main)) main1 <- paste("Star plot for", colnames(x$dframe[i])) else main1 <- main
@@ -308,7 +312,8 @@ if (plot.type == "starplot") {
     text(z, levels(x$dframe[,i]), col = "RED", pos = 3)
     for (j in 1:length(x$dframe[,i])) 
       lines(rbind(x$objscores[j,c(pd1,pd2)],z[x$dframe[,i][j],]), col = "BLUE")
-    identify(x$objscores[,c(pd1,pd2)], labels = rownames(x$dframe), col = "BLUE") 
+    if (identify) { identify(x$objscores[,c(pd1,pd2)], labels = rownames(x$dframe), col = "BLUE", cex = 0.7) 
+    } else { text(x$objscores[,c(pd1,pd2)], labels = rownames(x$dframe), col = "BLUE", pos = 3, cex = 0.7) }
   }
 }
 #----------------------------------end starplot---------------------------------
@@ -318,8 +323,8 @@ if (plot.type == "starplot") {
 
 if (plot.type == "vecplot") {
   
-  if (missing(xlim)) xlim <- range(x$objscores[,c(pd1,pd2)])
-  if (missing(ylim)) ylim <- range(x$objscores[,c(pd1,pd2)])
+  if (missing(xlim)) xlim <- range(x$objscores[,pd1])
+  if (missing(ylim)) ylim <- range(x$objscores[,pd2])
   xylim <- c(min(xlim[1],ylim[1]),max(xlim[2],ylim[2]))
 
   for (i in var.subset) {
@@ -371,7 +376,7 @@ if (plot.type == "trfplot") {
      matplot(x$low.rank[[i]], type = type, main = main1, ylim = ylim1, xlab = xlab, 
             ylab = ylab, xaxt = "n", pch = 20, col = 1:p, lty = 1:p,...)
      if (p != 1) legend(leg.pos,paste("Solution",1:p),col = 1:p, lty = 1:p,...)
-     axis(1, at = 1:length(vlev), labels = vlev)
+     axis(1, at = 1:dim(x$low.rank[[i]])[1], labels = rownames(x$low.rank[[i]]))
      
    }
 }
@@ -385,9 +390,10 @@ if (plot.type == "vorplot") {
   for (i in var.subset) {
      
      if (missing(main)) main1 <- paste("Voronoi plot for", colnames(x$dframe[i])) else main1 <- main
-     z <- rbind(x$objscores[,c(pd1,pd2)],x$catscores[[i]][,c(pd1,pd2)])
-     if (missing(xlim)) xlim1 <- range(z) else xlim1 <- xlim
-     if (missing(ylim)) ylim1 <- range(z) else ylim1 <- ylim
+     xlim.i <- c(x$objscores[,pd1],x$catscores[[i]][,pd1])
+     ylim.i <- c(x$objscores[,pd2],x$catscores[[i]][,pd2])
+     if (missing(xlim)) xlim1 <- range(xlim.i) else xlim1 <- xlim
+     if (missing(ylim)) ylim1 <- range(ylim.i) else ylim1 <- ylim
    
      par("ask" = TRUE)
      plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
