@@ -1,8 +1,8 @@
 Package: homals
 Type: Package
-Title: Gifi Methods
-Version: 0.9-11
-Date: 2009-07-20
+Title: Gifi Methods for Optimal Scaling
+Version: 1.0-0
+Date: 2009-07-31
 Author: Jan de Leeuw, Patrick Mair
 Maintainer: Jan de Leeuw <deleeuw@ucla.edu>
 Description: This package performs a homogeneity analysis and various
@@ -16,8 +16,6 @@ License: GPL
 URL: http://r-forge.r-project.org/projects/psychor/
 Imports: graphics, stats
 Depends: rgl, ape, scatterplot3d
+Packaged: 2009-07-31 16:13:38 UTC; admin
 Repository: CRAN
-Repository/R-Forge/Project: psychor
-Repository/R-Forge/Revision: 90
-Date/Publication: 2009-07-27 12:49:15
-Packaged: 2009-07-25 20:51:40 UTC; rforge
+Date/Publication: 2009-08-01 13:32:40

@@ -76,8 +76,8 @@ if (plot.type == "catplot") {
     par("ask"=TRUE)
     plot(x$catscores[[i]][,c(pd1,pd2)], type = type, xlim = xlim, ylim = ylim,
     main = main1, xlab = xlab, ylab = ylab, ...)
-    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, ...)
-    abline(h = 0, v = 0, col = "gray", lty = 2, ...)
+    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, cex = 0.7)
+    abline(h = 0, v = 0, col = "gray", lty = 2)
   }
 }
 #----------------------------------end catplot----------------------------------
@@ -156,8 +156,8 @@ if (plot.type == "hullplot") {
     {
       ind <- which(j==x$dframe[,i])                      #object index for convex hulls
   	  lst <- ind[chull(x$objscores[ind,c(pd1,pd2)])]                  #convex hull over ind
-  	  lines(x$objscores[c(lst,lst[1]),c(pd1,pd2)], ...)
-  	  text(x$objscores[lst,c(pd1,pd2)], j, ...)
+  	  lines(x$objscores[c(lst,lst[1]),c(pd1,pd2)])
+  	  text(x$objscores[lst,c(pd1,pd2)], j, cex = 0.7)
     }
   }
 }
@@ -175,7 +175,7 @@ if (plot.type == "labplot") {
     if (missing(main)) main1 <- paste("Labplot for",colnames(x$dframe[i]))  else main1 <- main
     par("ask" = TRUE)
     plot(x$objscores[,c(pd1,pd2)], type = "n", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, ...)
-    text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
+    text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), cex = 0.7)
   }
 } 
 #-----------------------------------end labplot---------------------------------
@@ -196,15 +196,15 @@ if (plot.type == "lossplot") {
     par("ask" = TRUE)
     plot(x$catscores[[i]][,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
          xlim = xlim1, ylim = ylim1, col = "RED", ...)
-    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, col = "RED", ...)
+    text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), pos = 3, col = "RED", cex = 0.7)
     lines(x$catscores[[i]][,c(pd1,pd2)], col = "RED")
     
     points(z,type="p", col = "blue")
-    text(z, levels(x$dframe[,i]), col="blue", pos = 3, ...)
+    text(z, levels(x$dframe[,i]), col="blue", pos = 3, cex = 0.7)
     lines(z, col="blue")
     for (j in 1:k) lines(rbind(x$catscores[[i]][j,c(pd1,pd2)],z[j,]),col="lightgray", lty=3)
     
-    abline(h = 0, v = 0, col = "gray", lty = 2, ...)
+    abline(h = 0, v = 0, col = "gray", lty = 2)
   }  
 }
 #----------------------------------end lossplot---------------------------------
@@ -220,7 +220,7 @@ if (plot.type == "objplot") {
 
   plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
        xlim = xlim, ylim = ylim, ...)
-  text(x$objscores[,c(pd1,pd2)], rownames(x$objscores), ...)
+  text(x$objscores[,c(pd1,pd2)], rownames(x$objscores), cex = 0.7)
 } 
 
 #---------------------------------end objplot-----------------------------------
@@ -288,7 +288,7 @@ if (plot.type == "spanplot") {
   		  sapply(jnd, function(r) lines(rbind(x$objscores[ind[j],c(pd1,pd2)], x$objscores[ind[r],c(pd1,pd2)]),
         col = rb[which(lev==k)]))
   		}
-  	 legend(leg.pos,paste("Category",lev), col = rb, lty = 1)
+  	 legend(leg.pos,paste("Category",lev), col = rb, lty = 1, cex = 0.7)
     } 
   }
 }
@@ -335,8 +335,8 @@ if (plot.type == "vecplot") {
       par("ask" = TRUE)
       plot(x$objscores[,c(pd1,pd2)], type = "p", main = main1, xlab = xlab, ylab = ylab,
            xlim = xylim, ylim = xylim, ...)
-      text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3, ...) 
-      text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), col = "RED", ...)
+      text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), pos = 3, cex = 0.7) 
+      text(x$catscores[[i]][,c(pd1,pd2)], levels(x$dframe[,i]), col = "RED", cex = 0.7)
       slope = a[2]/a[1]
       abline(coef = c(0,slope))
       
@@ -344,9 +344,9 @@ if (plot.type == "vecplot") {
         xs <- xe <- x$objscores[j,c(pd1,pd2)]  
         xe[1] <- (xs[1]+(xs[2]*slope))/(1+(slope^2))
         xe[2] <- slope*xe[1]     
-  	    lines(rbind(xs,xe), col = "BLUE", ...)
+  	    lines(rbind(xs,xe), col = "BLUE")
   	  }
-      abline(h = 0, v = 0, col = "gray", lty = 2, ...) 
+      abline(h = 0, v = 0, col = "gray", lty = 2) 
     } else {
       warning("No vector plot for ", colnames(x$dframe[i]),"(rank != 1).", call. = FALSE) 
     }
@@ -360,7 +360,7 @@ if (plot.type == "vecplot") {
 
 if (plot.type == "trfplot") {
 
-   if (missing(type)) type <- "b"
+   if (missing(type)) type <- "l"
    if (missing(xlab)) xlab <- "original scale"
    if (missing(ylab)) ylab <- "transformed scale"
 
@@ -374,8 +374,8 @@ if (plot.type == "trfplot") {
        
      par("ask" = TRUE)                     #first dimensions
      matplot(x$low.rank[[i]], type = type, main = main1, ylim = ylim1, xlab = xlab, 
-            ylab = ylab, xaxt = "n", pch = 20, col = 1:p, lty = 1:p,...)
-     if (p != 1) legend(leg.pos,paste("Solution",1:p),col = 1:p, lty = 1:p,...)
+            ylab = ylab, xaxt = "n", pch = 20, ...)
+     if (p != 1) legend(leg.pos,paste("Solution",1:p),col = 1:p, lty = 1:p)
      axis(1, at = 1:dim(x$low.rank[[i]])[1], labels = rownames(x$low.rank[[i]]))
      
    }
@@ -399,7 +399,7 @@ if (plot.type == "vorplot") {
      plot(x$objscores[,c(pd1,pd2)], type = "n", main = main1, xlab = xlab, ylab = ylab, 
           xlim = xlim1, ylim = ylim1, ...)
      drawEdges(x$catscores[[i]][,c(pd1,pd2)], far = 1000)
-     text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]), ...)
+     text(x$objscores[,c(pd1,pd2)], as.vector(x$dframe[,i]))
   }
 }
 #----------------------------------end vorplot----------------------------------

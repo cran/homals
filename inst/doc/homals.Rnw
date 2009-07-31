@@ -1,6 +1,6 @@
-%\VignetteIndexEntry{homals} 
+%\VignetteIndexEntry{Gifi Methods for Optimal Scaling in R: The Package homals}
 
-\documentclass[article]{jss1}
+\documentclass[article, nojss]{jss}
 \usepackage{amsmath, amsfonts}
 \usepackage{float,amssymb}
 \usepackage{hyperref}
@@ -12,8 +12,8 @@
 
 %% almost as usual
 \author{Jan de Leeuw\\University of California, Los Angeles \And 
-        Patrick Mair \\Wirtschaftsuniversit\"at Wien}
-\title{Gifi Methods for Optimal Scaling in R:\\ The Package \pkg{homals}}
+        Patrick Mair \\WU Wirtschaftsuniversit\"at Wien}
+\title{Gifi Methods for Optimal Scaling in \proglang{R}:\\ The Package \pkg{homals}}
 %
 %%% for pretty printing and a nice hypersummary also set:
 \Plainauthor{Jan de Leeuw, Patrick Mair} %% comma-separated
@@ -22,7 +22,7 @@
 
 %% an abstract and keywords
 \Abstract{
-Homogeneity analysis combines maximizing the correlations between variables of a multivariate data set with
+Homogeneity analysis combines the idea of maximizing the correlations between variables of a multivariate data set with
 that of optimal scaling. In this article we present methodological and practical issues of the \proglang{R} package \pkg{homals} which performs homogeneity analysis and various extensions. By setting rank constraints nonlinear principal component analysis can be performed. The variables can be partitioned into sets such that homogeneity analysis is extended to nonlinear canonical correlation analysis or to predictive models which emulate discriminant analysis and regression models. For each model the scale level of the variables can be taken into account by setting level constraints. All algorithms allow for missing values.
 }
 \Keywords{Gifi methods, optimal scaling, homogeneity analysis, correspondence analysis, nonlinear principal component analysis, nonlinear canonical correlation analysis, homals, \proglang{R}}
@@ -62,23 +62,23 @@ that of optimal scaling. In this article we present methodological and practical
 \begin{document}
 \section{Introduction}
 \label{sec:int}
-During the last years correspondence analysis (CA) has become a popular descriptive statistical method to analyze categorical data \citep{Benzecri:73, Greenacre:84, Gifi:90, Greenacre+Blasius:06}. Due to the fact that the visualization capabilities of statistical software have increased during this time, researchers of many areas apply CA and map objects and variables (and their respective categories) onto a common metric plane. 
+In recent years correspondence analysis (CA) has become a popular descriptive statistical method to analyze categorical data \citep{Benzecri:73, Greenacre:84, Gifi:90, Greenacre+Blasius:06}. Due to the fact that the visualization capabilities of statistical software have increased during this time, researchers of many areas apply CA and map objects and variables (and their respective categories) onto a common metric plane. 
 
-Currently, \proglang{R} \citep{R:07} offers a variety of routines to compute CA and related models. An overview of corresponding functions and packages is given in \citet{Mair+Hatzinger:07}. The package \pkg{ca} \citep{Nenadic+Greenacre:06} is a comprehensive tool to perform simple and multiple CA. Various two- and three-dimensional plot options are provided.  
+Currently, \proglang{R} \citep{R:07} offers a variety of routines to compute CA and related models. An overview of functions and packages is given in \citet{Mair+Hatzinger:07}. The package \pkg{ca} \citep{Nenadic+Greenacre:06} is a comprehensive tool to perform simple and multiple CA. Various two- and three-dimensional plot options are provided.  
 
 In this paper we present the \proglang{R} package \pkg{homals}, starting from the simple homogeneity analysis, which corresponds to a multiple CA, and providing several extensions. \citet{Gifi:90} points out that homogeneity analysis can be used in a \emph{strict} and a \emph{broad} sense. In a strict sense homogeneity analysis is used for the analysis of strictly categorical data, with a particular loss function and a particular algorithm for finding the optimal solution. In a broad sense homogeneity analysis refers to a class of criteria for analyzing multivariate data in general, sharing the characteristic aim of optimizing the homogeneity of variables under various forms of manipulation and simplification \citep[p. 81]{Gifi:90}. This view of homogeneity analysis will be used in this article since \pkg{homals} allows for such general computations. Furthermore, the two-dimensional as well as three-dimensional plotting devices offered by \proglang{R} are used to develop a variety of customizable visualization techniques.    
 More detailed methodological descriptions can be found in \citet{Gifi:90} and some of them are revisited in \citet{Michailidis+deLeeuw:98}. 
 
 
-\section{Homogeneity Analysis}
-In this section we will focus on the underlying methodological aspects of \pkg{homals}. Starting with the formulation of the loss function, the classical alternating least squares algorithm is presented in brief and the relation to CA is shown. Starting from basic homogeneity analysis we elaborate various extensions such as nonlinear canonical analysis and nonlinear principal component analysis. A less formal introduction to Gifi methods can be found in \citet{Mair+deLeeuw:2008}. 
+\section{Homogeneity analysis}
+In this section we will focus on the underlying methodological aspects of \pkg{homals}. Starting with the formulation of the loss function, the classical alternating least squares algorithm is presented in brief and the relation to CA is shown. Based on simple homogeneity analysis we elaborate various extensions such as nonlinear canonical analysis and nonlinear principal component analysis. A less formal introduction to Gifi methods can be found in \citet{Mair+deLeeuw:2008}. 
 
 \subsection{Establishing the loss function}
-Homogeneity analysis is based on the criterion of minimizing the departure from homogeneity. Homogeneity is measured by a loss function. To write the corresponding basic equations the following definitions are needed. For $i=1,\ldots,n$ objects, data on $m$ (categorical) variables are collected where each of the $j=1,\ldots,m$ variable takes on $k_j$ different values (their \emph{levels} or \emph{categories}). We code them using $n\times k_j$ binary \emph{indicator matrices} $G_j$, i.e., a dummy matrix for each variable. The whole set of indicator matrices can be collected in a block matrix
+Homogeneity analysis is based on the criterion of minimizing the departure from homogeneity. This departure is measured by a loss function. To write the corresponding basic equations the following definitions are needed. For $i=1,\ldots,n$ objects, data on $m$ (categorical) variables are collected where each of the $j=1,\ldots,m$ variable takes on $k_j$ different values (their \emph{levels} or \emph{categories}). We code them using $n\times k_j$ binary \emph{indicator matrices} $G_j$, i.e., a matrix of dummy variables for each variable. The whole set of indicator matrices can be collected in a block matrix
 \begin{equation}
 G\defi\begin{bmatrix}G_1&\vdots&G_2&\vdots&\cdots&\vdots&G_m\end{bmatrix}.
 \end{equation}
-In this paper we derive the loss function including the option for missing values. For a simpler (i.e. no missings) introduction the reader is referred to \citet[][p. 307--314]{Michailidis+deLeeuw:98}. In the indicator matrix missing observations are coded as complete zero rows; if object $i$ is missing on variable $j$, then row $i$ of $G_j$ is 0, otherwise row sum becomes 1 since the category entries are disjoint. This corresponds to the first missing option presented in \citet[p. 74]{Gifi:90}. Other possibilities would be to add an additional column to the indicator matrix for each variable with missing data or to add as many additional columns as there are missing data for the $j$-th variable. However, our approach is to define the binary diagonal matrix $M_j$ if dimension $n \times n$ for each variable $j$. The diagonal element $(i,i)$ is equal to 0 if object $i$ has a missing value on variable $j$ and equal to 1 otherwise. Based on $M_j$ we can define $M_\star$ as the sum of the $M_j$'s and $M_\bullet$ as their average.  
+In this paper we derive the loss function including the option for missing values. For a simpler (i.e. no missings) introduction the reader is referred to \citet[][p. 307--314]{Michailidis+deLeeuw:98}. In the indicator matrix missing observations are coded as complete zero rows; if object $i$ is missing on variable $j$, then row $i$ of $G_j$ is 0. Otherwise the row sum becomes 1 since the category entries are disjoint. This corresponds to the first missing option presented in \citet[\emph{missing data passive}][p. 74]{Gifi:90}. Other possibilities would be to add an additional column to the indicator matrix for each variable with missing data or to add as many additional columns as there are missing data for the $j$-th variable. However, our approach is to define the binary diagonal matrix $M_j$ if dimension $n \times n$ for each variable $j$. The diagonal element $(i,i)$ is equal to 0 if object $i$ has a missing value on variable $j$ and equal to 1 otherwise. Based on $M_j$ we can define $M_\star$ as the sum of the $M_j$'s and $M_\bullet$ as their average.  
 
 For convenience we introduce
 \begin{equation}
@@ -92,10 +92,10 @@ The problem of finding these solutions can be formulated by means of the followi
 \label{eq:loss}
 \sigma(X;Y_1,\ldots,Y_m)\defi \sum_{j=1}^m\mathbf{tr}(X-G_jY_j)'M_j(X-G_jY_j)
 \end{equation}
-We use the normalization $\mathbf{u}'M_\bullet X=0$ and $X'M_\bullet X=I$ in order to avoid the trivial solution $X=0$ and $Y_j=0$. The first restriction centers the graph plot (see Section \ref{sec:R}) around the origin whereas the second restriction makes the columns of the object score matrix orthogonal. Multiplying the scores by $\sqrt{n/m}$ gives a mean of 0 and a variance of 1 (i.e., they are $z$-scores). Note that from an analytical point of view the loss function represents the sum-of-squares of $(X-G_jY_j)$ which obviously involves the object scores and the category quantifications. Thus, the aim is to minimize simultaneously over $X$ and $Y_j$. We give a graphical interpretation of the loss function in the following section. 
+We use the normalization $\mathbf{u}'M_\bullet X=0$ and $X'M_\bullet X=I$ in order to avoid the trivial solution $X=0$ and $Y_j=0$. The first restriction centers the graph plot (see Section \ref{sec:R}) around the origin whereas the second restriction makes the columns of the object score matrix orthogonal. Multiplying the scores by $\sqrt{n/m}$ gives a mean of 0 and a variance of 1 (i.e., they are $z$-scores). Note that from an analytical point of view the loss function represents the sum-of-squares of $(X-G_jY_j)$ which obviously involves the object scores and the category quantifications. Thus, we minimize simultaneously over $X$ and $Y_j$. We give a graphical interpretation of the loss function in the following section. 
 
 \subsection{Geometry of the loss function}
-In the \pkg{homals} package we use homogeneity analysis as a graphical method to explore multivariate data sets. The \emph{joint plot} where the object scores and the category quantifications are mapped in a joint space, can be considered as the classical or standard homals plot. The category points are the centers of gravity of the object points that share the same category. The larger the spread between category points the better a variable discriminates and thus the smaller the contribution to the loss. The closeness of two objects in the plot is related to the similarity of their response patterns. A ``perfect'' solution, i.e., without any loss at all, would imply that all object points coincide with their category points. 
+In the \pkg{homals} package we use homogeneity analysis as a graphical method to explore multivariate data sets. The \emph{joint plot} mapping object scores and the category quantifications in a joint space, can be considered as the classical or standard homals plot. The category points are the centers of gravity of the object points that share the same category. The larger the spread between category points the better a variable discriminates and thus the smaller the contribution to the loss. The closeness of two objects in the plot is related to the similarity of their response patterns. A ``perfect'' solution, i.e., without any loss at all, would imply that all object points coincide with their category points. 
 
 Moreover, we can think of $G$ as the adjacency matrix of a bipartite graph in which the $n$ objects and the $k_j$ categories ($j=1,\ldots,m$) are the vertices. In the corresponding \emph{graph plot} an object and a category are connected by an edge if the object is in the corresponding category. The loss in (\ref{eq:loss}) pertains to the sum of squares of the line lengths in the graph plot. Producing a \emph{star plot}, i.e., connecting the object scores with their category centroid, the loss corresponds to the sum over variables of the sum of squared line lengths. More detailed plot descriptions are given in Section \ref{sec:R}.
 
@@ -109,7 +109,7 @@ Typically, the minimization problem is solved by the iterative \emph{alternating
 \end{enumerate}
 Note that matrix multiplications using indicator matrices can be implemented efficiently as cumulating the sums of rows over $X$ and $Y$. 
 
-Here $\mathbf{orth}$ is some technique which computes an orthonormal basis for the column space of a matrix. We can use QR decomposition, modified Gram-Schmidt, or the singular value decomposition (SVD). In \pkg{homals} the left singular vectors of $\tilde X^{(t)}$, here denoted as $\mathbf{lsvec}$, are used. 
+Here $\mathbf{orth}$ is some technique which computes an orthonormal basis for the column space of a matrix. We can use QR decomposition, modified Gram-Schmidt, or the singular value decomposition (SVD). In the \pkg{homals} package the left singular vectors of $\tilde X^{(t)}$, here denoted as $\mathbf{lsvec}$, are used. 
 
 To simplify, let $P_j$ denote the orthogonal projector on the subspace spanned by the columns of $G_j$, i.e.,
 $P_j^{}=G_j^{}D_j^{-1}G_j'$. Correspondingly, the sum over the $m$ projectors is 
@@ -123,7 +123,7 @@ X^{(t+1)}=\mathbf{lsvec}(\tilde X^{(t)})=\mathbf{lsvec}(M_\bullet^{-1}P_\bullet^
 \end{equation}
 In each iteration $t$ we compute the value of the loss function to monitor convergence. Note that Formula (\ref{eq:Xlsv}) is not suitable for computation, because it replaces computation with sparse indicator matrices by computations with a dense average projector. 
 
-Computing the \pkg{homals} solution in this way is the same as performing a CA on $G$. Usually, multiple CA solves the generalized eigenproblem for the Burt matrix $C=G'G$ and its diagonal \(D\) \citep{Greenacre:84,Greenacre+Blasius:06}.
+Computing the homals solution in this way is the same as performing a CA on $G$. Usually, multiple CA solves the generalized eigenproblem for the Burt matrix $C=G'G$ and its diagonal \(D\) \citep{Greenacre:84,Greenacre+Blasius:06}.
 Thus, we can put the problem in Equation \ref{eq:loss} into a SVD context \citep{deLeeuw+Michailides+Wang:99}. Using the block matrix notation, we have to solve the generalized singular value problem of the form
 \begin{eqnarray}
 GY=M_\star X\Lambda, \\
@@ -137,9 +137,9 @@ G'M_\star^{-1}GY=DY\Lambda^2.
 Here the eigenvalues $\Lambda^2$ are the ratios along each dimension of the average between-category variance and the average total variance.
 Also $X'P_jX$ is the between-category dispersion for variable $j$. Further elaborations can be found in \citet{Michailidis+deLeeuw:98}. 
 
-Compared to the classical SVD approach, the ALS algorithm only computes the first $p$ dimensions of the solution. This leads to an increase in computational efficiency. Moreover, by capitalizing on sparseness of $G$, \pkg{homals} is able to handle large data sets.
+Compared to the classical SVD approach, the ALS algorithm only computes the first $p$ dimensions of the solution. This leads to an increase in computational efficiency. Moreover, by capitalizing on sparseness of $G$, the \pkg{homals} package is able to handle large data sets.
 
-The goodness-of-fit of a solution can be examined by means of a screeplot of the eigenvalues. The contribution of each variable to the final solution can be examined by means of discrimination measures defined by $\left|\left|G_jY_j\right|\right|^2/n$ \citep[see][]{Meulman:1996}. A plot of the discrimination measures will be shown in the examples section.
+The goodness-of-fit of a solution can be examined by means of a screeplot of the eigenvalues. The contribution of each variable to the final solution can be examined by means of discrimination measures defined by $\left|\left|G_jY_j\right|\right|^2/n$ \citep[see][]{Meulman:1996}. 
 
 \section{Extensions of homogeneity analysis}
 \citet{Gifi:90} provides various extensions of homogeneity analysis and elaborates connections to other multivariate methods. The package \pkg{homals} allows for imposing restrictions on the variable ranks and levels as well as defining sets of variables. These options offer a wide spectrum of additional possibilities for multivariate data analysis beyond classical homogeneity analysis (cf. broad sense view in the Introduction).
@@ -157,8 +157,8 @@ Y_j = \mathbf{z}_j\mathbf{a}_j',
 \end{equation}
 where $\mathbf{z}_j$ is a vector of length $k_j$ with category quantifications and $\mathbf{a}_j$ a vector of length $p$ with weights. Thus, each quantification matrix is restricted to rank 1, which allows for the existence of object scores with a single category quantification. 
 
-\subsection{Multiple Quantifications}
-It is not necessarily needed that we restrict the rank of the score matrix to 1. Our homals implementation allows for multiple rank restrictions. We can simply extend Equation \ref{eq:srank} to the general case 
+\subsection{Multiple quantifications}
+It is not necessarily needed that we restrict the rank of the score matrix to 1. Our \pkg{homals} implementation allows for multiple rank restrictions. We can simply extend Equation \ref{eq:srank} to the general case 
 \begin{equation}
 \label{E:res}
 Y_j=Z_jA_j'
@@ -166,7 +166,7 @@ Y_j=Z_jA_j'
 where again $1 \leq r_j \leq \min{(k_j-1,p)}$, $Z_j$ is $k_j \times r_j$ and $A_j$ is $p \times r_j$. We require, without loss of generality, that
 $Z_j'D_j^{}Z_j^{}=I$. Thus, we have the situation of \emph{multiple quantifications} which implies imposing an additional constraint each time PCA is carried out. 
 
-To establish the loss function for the rank constrained version we write $r_\star$ for the sum of the $r_j$ and $r_\bullet$ for their average. The block matrix $G$ of dummies now becomes 
+To establish the loss function for the rank constrained version we write $r_\star$ for the sum of the $r_j$ and $r_\bullet$ for their average. The block matrix $G$ of dummy variables now becomes 
 \begin{equation}
 Q\defi\begin{bmatrix}G_1Z_1&\vdots&G_2Z_2&\vdots&\cdots&\vdots&G_mZ_m\end{bmatrix}.
 \end{equation}
@@ -191,7 +191,7 @@ minimizing (\ref{eq:lossr}) over $X$ and $A$ we see that
 \end{equation}
 where the $\lambda_s$ are the ordered singular values. A corresponding example in terms of a \emph{lossplot} is given in Section \ref{sec:R}.
 
-\subsection{Level Constraints: Optimal Scaling}
+\subsection{Level constraints: Optimal scaling}
 From a general point of view, \emph{optimal scaling} attempts to do two things simultaneously: The transformation of the data by a transformation appropriate for the scale level (i.e. level constraints), and the fit of a model to the transformed data to account for the data. Thus it is a simultaneous process of data transformation and data representation \citep{Takane:2005}. In this paper we will take into account the scale level of the variables in terms of restrictions within $Z_j$. To do this, the starting point is to split up Equation \ref{eq:lossr} into two separate terms. Using \(\hat Y_j=D_j^{-1}G_j'X\) this leads to 
 \begin{eqnarray}
  & \sum_{j=1}^m \mathbf{tr}(X-G_jY_j)'M_j(X-G_jY_j) & \nonumber \\
@@ -232,7 +232,7 @@ Hence, the loss function in (\ref{eq:lt2}) changes to
 \end{equation}
 Since column $\mathbf{z}_{j0}$ is fixed, $Z_j$ is a $k_j \times (r_j-1)$ matrix and $A_j$, with $\mathbf{a}_{j0}$ as the first column, is $p \times (r_j-1)$. In order to minimize (\ref{eq:lossnum}), $\mathbf{z}_{j0}'D_jZ_j=0$ is required as minimization condition.
 
-Note that level constraints can be imposed additionally to rank constraints. If the data set has variables with different scale levels, \pkg{homals} allows for setting level constraints for each variable $j$ separately. Unlike in \citet{Gifi:90} and \citet{Michailidis+deLeeuw:98} it is not necessary to have rank 1 restrictions in order to allow for different scaling levels. Our implementation allows for multiple ordinal, multiple numerical etc. level constraints. 
+Note that level constraints can be imposed additionally to rank constraints. If the data set has variables with different scale levels, the \pkg{homals} package allows for setting level constraints for each variable $j$ separately. Unlike in \citet{Gifi:90} and \citet{Michailidis+deLeeuw:98} it is not necessary to have rank 1 restrictions in order to allow for different scaling levels. Our implementation allows for multiple ordinal, multiple numerical etc. level constraints. 
 
 \subsection{Nonlinear canonical correlation analysis}
 In Gifi terminology, nonlinear canonical correlation analysis (NLCCA) is called ``OVERALS" \citep{vanderBurg+deLeeuw+Verdegaal:88, vanderBurg+deLeeuw+Dijksterhuis:94}. This is due to the fact that it has most of the other Gifi-models as special cases. 
@@ -322,20 +322,26 @@ the orthogonal lines determined by the rank restricted category quantifications.
 \end{itemize} 
 
 
-\subsection{Simple Homogeneity Analysis}
+\subsection{Simple homogeneity analysis}
 \label{sec:sha}
-The first example is a simple (i.e., no level or rank restrictions, no sets defined) three-dimensional homogeneity analysis for the \code{senate} data set \citep{Ada:02}. The data consists of 2001 senate votes on 20 issues selected by Americans for Democratic Action. The votes selected cover a full spectrum of domestic, foreign, economic, military, environmental and social issues. We tried to select votes which display sharp liberal/conservative contrasts. As a consequence, Democrat candidates have many more ``yes" responses than Republican candidates. Due to non-responses we have several missings which are coded as \code{NA}. A full description of the items can be found in the corresponding package help file. The first column of the data set (i.e., 50 Republicans vs. 49 Democrats and 1 Independent) is inactive and will be used for validation. 
+The first example is a simple (i.e., no level or rank restrictions, no sets defined) three-dimensional homogeneity analysis for the \code{senate} data set \citep{Ada:02}. The data consists of 2001 senate votes on 20 issues selected by Americans for Democratic Action. The votes selected cover a full spectrum of domestic, foreign, economic, military, environmental and social issues. We tried to select votes which display sharp liberal/conservative contrasts. As a consequence, Democrat candidates have many more ``yes" responses than Republican candidates. Due to non-responses we have several missings which are coded as \code{NA}. A full description of the items can be found in the corresponding package help file. The first column of the data set (i.e., the variable ``Party'' containing 50 Republicans vs. 49 Democrats and 1 Independent) is inactive and will be used for validation. 
 
 <<>>=
 library("homals")
-data(senate)
+data("senate")
 res <- homals(senate, active = c(FALSE, rep(TRUE, 20)), ndim = 3)
 @
 <<eval = FALSE>>=
+# Figure 1
 plot3d(res, plot.type = "objplot", sphere = FALSE, bgpng = NULL)
-plot(res, plot.type = "spanplot", plot.dim = c(1,2), var.subset = 1, xlim = c(-2,3), ylim = c(-2,3))
-plot(res, plot.type = "spanplot", plot.dim = c(1,3), var.subset = 1, xlim = c(-2,3), ylim = c(-2,3))
-plot(res, plot.type = "spanplot", plot.dim = c(2,3), var.subset = 1, xlim = c(-2,3), ylim = c(-2,3))
+plot(res, plot.type = "spanplot", plot.dim = c(1, 2), var.subset = 1, xlim = c(-2, 3), ylim = c(-2, 3), asp = 1)
+plot(res, plot.type = "spanplot", plot.dim = c(1, 3), var.subset = 1, xlim = c(-2, 3), ylim = c(-2, 3), asp = 1)
+plot(res, plot.type = "spanplot", plot.dim = c(2, 3), var.subset = 1, xlim = c(-2, 3), ylim = c(-2, 3), asp = 1)
+@
+
+<<eval = FALSE>>=
+# Figure 2
+par(mfrow = c(1, 1))
 plot3dstatic(res, plot.type = "loadplot")
 @
 
@@ -372,7 +378,7 @@ p.res$cl.table$Party
 From the classification table we see that 91\% of the party affiliations are correctly classified. Note that in the case of such a simple homals solution it can happen that a lower dimensional solution results in a better classification rate than a higher dimensional. The reason is that in simple homals the classification rate is not the criterion to be optimized. 
 
 
-\subsection{Predictive Models and Canonical Correlation}
+\subsection{Predictive models and canonical correlation}
 \label{sec:pmcca}
 The \code{sets} argument allows for partitioning the variables into sets in order to emulate canonical correlation analysis and predictive models. As outlined above, if the variables are partitioned into asymmetric sets of one variable vs. the others, we can put this type of homals model into a predictive modeling context. If not, the interpretation in terms of canonical correlation is more appropriate. 
 
@@ -385,27 +391,27 @@ The \code{sets} argument allows for partitioning the variables into sets in orde
 \end{figure}
 
 To demonstrate this, we use the \code{galo} dataset \citep{Peschar:75} where data of 1290 school children in the sixth grade of an elementary school in the city of Groningen (Netherlands) were collected. The variables are Gender, IQ (categorized into 9 ordered categories), Advice (teacher categorized the children into 7 possible forms of secondary education, i.e., Agr = agricultural; Ext = extended primary education; Gen = general; 
-Grls = secondary school for girls; Man = manual, including housekeeping; 
-None = no further education; Uni = pre-University) and SES (parent's profession in 6 categories). In this example it could be of interest to predict Advice from Gender, IQ, and SES.
+Grls = secondary school for girls; Man = manual, including housekeeping; None = no further education; Uni = pre-University), SES (parent's profession in 6 categories) and School (37 different schools). In this example it could be of interest to predict Advice from Gender, IQ, and SES (whereas School is inactive).
 
 <<>>=
-data(galo)
+data("galo")
 res <- homals(galo, active = c(rep(TRUE, 4), FALSE), sets = list(c(1,2,4),3,5))
-plot(res, plot.type = "vorplot", var.subset = 3)
-plot(res, plot.type = "labplot", var.subset = 2)
 predict(res)
 @
+<<eval = FALSE>>=
+plot(res, plot.type = "vorplot", var.subset = 3, asp = 1)
+plot(res, plot.type = "labplot", var.subset = 2, asp = 1)
+@
 
-A rate of .6318 correctly classified teacher advice results. The Voronoi plot in Figure \ref{fig:vor} shows the Voronoi regions for the same variable. A labeled plot is given for the IQs which shows that on the upper half of the horseshoe there are mainly children with IQ-categories 7-9. Distinctions between these levels of intelligence are mainly reflected by Dimension 1. For the lower horseshoe half it can be stated that both dimensions reflect differences in lower IQ-categories.
+A rate of .6310 correctly classified teacher advice results. The Voronoi plot in Figure \ref{fig:vor} shows the Voronoi regions for the same variable. A labeled plot is given for the IQs which shows that on the upper half of the horseshoe there are mainly children with IQ-categories 7-9. Distinctions between these levels of intelligence are mainly reflected by Dimension 1. For the lower horseshoe half it can be stated that both dimensions reflect differences in lower IQ-categories.
 
 Using the classical iris dataset, the aim is to predict Species from Petal/Sepal Length/Width. The polynomial level constraint is posed on the predictors and the response is treated as nominal. A hull plot for the response, a label plot Petal Length and loss plots for all predictors are produced.
 
 <<eval = FALSE>>=
-data(iris)
-res <- homals(iris, sets = list(1:4,5), level = c(rep("polynomial",4),"nominal"), rank = 2, itermax = 2000)
-plot(res, plot.type = "hullplot", var.subset = 5, cex = 0.7, xlim = c(-3,3), ylim = c(-3,3))
-plot(res, plot.type = "labplot", var.subset = 3, cex = 0.7, xlim = c(-3,3), ylim = c(-3,3))
-plot(res, plot.type = "lossplot", var.subset = 1:4, cex = 0.7, xlim = c(-3,4), ylim = c(-3,4))
+data("iris")
+res <- homals(iris, sets = list(1:4, 5), level = c(rep("polynomial", 4), "nominal"), rank = 2, itermax = 2000)
+plot(res, plot.type = "hullplot", var.subset = 5, cex = 0.7, xlim = c(-3,3), ylim = c(-4,3), asp = 1)
+plot(res, plot.type = "labplot", var.subset = 3, cex = 0.7, xlim = c(-3,3), ylim = c(-4,3), asp = 1)
 @
 
 \begin{figure}[hbt]
@@ -420,6 +426,10 @@ For this two-dimensional homals solution, 100\% of the iris species are correctl
 
 The loss plots in Figure \ref{fig:irisLoss} show the fitted rank-2 solution (red lines) against the unrestricted solution. The implication of the polynomial level restriction for the fitted model is obvious.
 
+<<eval = FALSE>>=
+plot(res, plot.type = "lossplot", var.subset = 1:4, cex = 0.7, xlim = c(-3, 3), ylim = c(-5, 3), asp = 1)
+@
+
 \begin{figure}[hbt]
 \begin{center}
 \includegraphics[height=70mm, width=70mm]{irisLoss1.pdf}
@@ -430,17 +440,15 @@ The loss plots in Figure \ref{fig:irisLoss} show the fitted rank-2 solution (red
 \end{center}
 \end{figure}
 
-To show another homals application of predictive (in this case regression) modeling we use the Neumann dataset \citep{Wilson:26}: Willard Gibbs discovered a theoretical formula connecting the density, the
-pressure, and the absolute temperature of a mixture of gases with convertible 
-components. He applied this formula and the estimated constants to 65 experiments
-carried out by Neumann, and he discusses the systematic and accidental divergences (residuals). In \pkg{homals} such a linear regression problem can be emulated by setting numerical levels. Constraining the levels to be ordinal, we get a monotone regression \citep{Gifi:90}. 
+To show another homals application of predictive (in this case regression) modeling we use the Neumann dataset \citep{Wilson:26}: Willard Gibbs discovered a theoretical formula connecting the density, the pressure, and the absolute temperature of a mixture of gases with convertible 
+components. He applied this formula and the estimated constants to 65 experiments carried out by Neumann, and he discusses the systematic and accidental divergences (residuals). In the \pkg{homals} package such a linear regression of density on temperature and pressure can be emulated by setting numerical levels. Constraining the levels to be ordinal, we get a monotone regression \citep{Gifi:90}. 
 
 <<eval = FALSE>>=
-data(neumann)
+data("neumann")
 res.lin <- homals(neumann, sets = list(3,1:2), level = "numerical", rank = 1)
 res.mon <- homals(neumann, sets = list(3,1:2), level = "ordinal", rank = 1)
-plot(res.lin, plot.type = "loadplot", main = "Loadings Plot Linear Regression", xlim = c(-10,10), ylim = c(-10,10))
-plot(res.mon, plot.type = "loadplot", main = "Loadings Plot Monotone Regression", xlim = c(-10,10), ylim = c(-10,10))
+plot(res.lin, plot.type = "loadplot", main = "Loadings Plot Linear Regression", xlim = c(-10, 10), ylim = c(-5, 10), asp = 1)
+plot(res.mon, plot.type = "loadplot", main = "Loadings Plot Monotone Regression", xlim = c(-10, 10), ylim = c(-5, 10), asp = 1)
 @
 
 The points in the loadings plot in Figure \ref{fig:neuload} correspond to regression coefficients.
@@ -457,9 +465,9 @@ The impact of the level restrictions on the scaling is visualized in the transfo
 
 \begin{figure}[hbt]
 \begin{center}
-\includegraphics[height=60mm, width=60mm]{neutrftemp.pdf}
-\includegraphics[height=60mm, width=60mm]{neutrfpres.pdf}
-\includegraphics[height=60mm, width=60mm]{neutrfdens.pdf}
+\includegraphics[height=70mm, width=70mm]{neutrftemp.pdf}
+\includegraphics[height=70mm, width=70mm]{neutrfpres.pdf}
+\includegraphics[height=70mm, width=70mm]{neutrfdens.pdf}
 \caption{\label{fig:neutrf}Transformation Plots for Neumann Regression}
 \end{center}
 \end{figure}
@@ -489,10 +497,10 @@ PHY& Physiological and Animal Psychology\\
 Using this data set we will perform two-dimensional NLPCA by restricting the rank to be 1. Note that the objects are the areas and the variables are the psychologists. Thus, the input data structure is a $9 \times 39$ data frame. Note that the scale level is set to ``ordinal".
 
 <<eval = FALSE>>=
-data(roskam)
+data("roskam")
 res <- homals(roskam, rank = 1, level = "ordinal")
-plot(res, plot.type = "objplot", xlim = c(-2.5, 2.5), ylim = c(-2.5, 2.5))
-plot(res, plot.type = "vecplot", var.subset = 2, main = "Vector Plot Rater 2", xlim = c(-2.5, 2.5), ylim = c(-2.5, 2.5))
+plot(res, plot.type = "objplot", xlim = c(-2.5, 2.5), ylim = c(-2.5, 2.5), asp = 1)
+plot(res, plot.type = "vecplot", var.subset = 2, main = "Vector Plot Rater 2", xlim = c(-2.5, 2.5), ylim = c(-2.5, 2.5), asp = 1)
 @
 
 \begin{figure}[hbt]
@@ -507,7 +515,7 @@ The object plot in Figure \ref{fig:roskam} shows interesting rating ``twins" of 
 The vector plot on the right hand side projects the category scores onto a straight line determined by rank restricted category quantifications. Similarly, a projection plot could be created. Further analyses of this dataset within a PCA context can be found in \citet{deLeeuw:06}. 
  
 \section{Discussion}
-In this paper theoretical foundations of the methodology used in \pkg{homals} are elaborated and package application and visualization issues are presented. Basically, \pkg{homals} covers the techniques described in \citet{Gifi:90}: Homogeneity analysis, NLCCA, predictive models, and NLPCA. It can handle missing data and the scale level of the variables can be taken into account. The package offers a broad variety of real-life datasets and furthermore provides numerous methods of visualization, either in a two-dimensional or in a three-dimensional way. Future enhancements will be to replace indicator matrices by more general B-spline bases and to incorporate weights for observations. To conclude, \pkg{homals} provides flexible, easy-to-use routines which allow researchers from different areas to compute, interpret, and visualize methods belonging to the Gifi-family. 
+In this paper theoretical foundations of the methodology used in the \pkg{homals} package are elaborated and package application and visualization issues are presented. Basically, \pkg{homals} covers the techniques described in \citet{Gifi:90}: Homogeneity analysis, NLCCA, predictive models, and NLPCA. It can handle missing data and the scale level of the variables can be taken into account. The package offers a broad variety of real-life datasets and furthermore provides numerous methods of visualization, either in a two-dimensional or in a three-dimensional way. Future enhancements will be to replace indicator matrices by more general B-spline bases and to incorporate weights for observations. To conclude, \pkg{homals} provides flexible, easy-to-use routines which allow researchers from different areas to compute, interpret, and visualize methods belonging to the Gifi family. 
 
 \bibliography{homalsR}
 

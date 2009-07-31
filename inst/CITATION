@@ -1,0 +1,20 @@
+citHeader("To cite homals in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Gifi Methods for Optimal Scaling in {R}: The Package {homals}",
+  author       = personList(person("Jan", "de Leeuw"),
+                   as.person("Patrick Mair")),
+  journal      = "Journal of Statistical Software",
+  year         = "2009",
+  volume       = "31",
+  number       = "4",
+  pages        = "1--20",
+  url          = "http://www.jstatsoft.org/v31/i04/",
+
+  textVersion  =
+  paste("Jan de Leeuw, Patrick Mair (2009).",
+        "Gifi Methods for Optimal Scaling in R: The Package homals.",
+        "Journal of Statistical Software, 31(4), 1-20.",
+        "URL http://www.jstatsoft.org/v31/i04/.")
+)
+

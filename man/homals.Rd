@@ -68,7 +68,8 @@ homals(data, ndim = 2, rank = ndim, level = "nominal", sets = 0, active = TRUE,
   \item{active}{Vector with active/inactive variables.}
 }
 \references{
-de Leeuw, J., \& Mair, P. (2007). Gifi models in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
+de Leeuw, J., \& Mair, P. (2009). Gifi methods for optimal scaling in R: The package homals. 
+Journal of Statistical Software, 31(4), 1-20, \url{http://www.jstatsoft.org/v31/i04/}. 
 
 Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
 }
