@@ -395,6 +395,11 @@ Grls = secondary school for girls; Man = manual, including housekeeping; None = 
 
 <<>>=
 data("galo")
+@
+<<echo = FALSE>>=
+options(warn = -1)
+@
+<<>>=
 res <- homals(galo, active = c(rep(TRUE, 4), FALSE), sets = list(c(1,2,4),3,5))
 predict(res)
 @

@@ -1,7 +1,7 @@
 \name{senate07}
 \alias{senate07}
 
-\docType{data07}
+\docType{data}
 \title{Senate votes 2007}
 \description{
 2007 senate votes on 20 issues selected by Americans
@@ -209,7 +209,7 @@ Ada (2002). 2001 Voting Record: Shattered Promise of Liberal Progress. ADA Today
 
 
 \examples{
-   data(senate)
-   senate
+   data(senate07)
+   senate07
 }
 \keyword{datasets}

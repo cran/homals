@@ -67,11 +67,11 @@ for (j in 1:nvar) {
 #----------------initialize scores and counters-----------------------------
 
 x <- cbind(orthogonalPolynomials(mis,1:nobj,ndim))
-#x <- normX(centerX(x,mis),mis)$q
-x <- normX(centerX(x,mis),mis)$q*sqrt(nobj*nvar)           #norm to X'MX=nmI --> X are z-scores
+x <- normX(centerX(x,mis),mis)$q
+#x <- normX(centerX(x,mis),mis)$q*sqrt(nobj*nvar)           #norm to X'MX=nmI --> X are z-scores
 
 y <- lapply(1:nvar, function(j) computeY(dframe[,j],x))
-y <- updateY(dframe,x,y,active,rank,level,sets)
+#y <- updateY(dframe,x,y,active,rank,level,sets)
 sold <- totalLoss(dframe,x,y,active,rank,level,sets)
 iter <- pops <- 0
 
@@ -80,26 +80,26 @@ iter <- pops <- 0
 repeat {
 	iter <- iter + 1
 	y <- updateY(dframe,x,y,active,rank,level,sets,verbose=verbose)
-	smid <- totalLoss(dframe, x, y, active, rank, level, sets)
+	smid <- totalLoss(dframe, x, y, active, rank, level, sets)/(nobj * nvar * ndim)
 	ssum <- totalSum(dframe, x, y, active, rank, level, sets)
-  qv <- normX(centerX((1/mis)*ssum,mis),mis)
-	#z <- qv$q
-  z <- qv$q*sqrt(nobj*nvar)                                   #norm to var = 1 
+        qv <- normX(centerX((1/mis)*ssum,mis),mis)
+	z <- qv$q
+        #z <- qv$q*sqrt(nobj*nvar)                                   #norm to var = 1 
   
-	snew <- totalLoss(dframe, z, y, active, rank, level, sets)
+	snew <- totalLoss(dframe, z, y, active, rank, level, sets)/(nobj * nvar * ndim)
 	if (verbose > 0) cat("Iteration:",formatC(iter,digits=3,width=3),"Loss Value: ", formatC(c(smid),digits=6,width=6,format="f"),"\n")
 	
-  r <- qv$r                                                    #eigenvalues
+        r <- abs(qv$r)/2                                             #eigenvalues
 	ops <- sum(r)                                                #convergence criteria
-  aps <- sum(La.svd(crossprod(x,mis*z),0,0)$d)/ndim	
+        aps <- sum(La.svd(crossprod(x,mis*z),0,0)$d)/ndim
 
 	if (iter == itermax) {
 		stop("maximum number of iterations reached")
 		}
 	
-	#if (smid > sold) {
-	#	warning(cat("Loss function increases in iteration ",iter,"\n"))
-	#}
+	if (smid > sold) {
+		warning(cat("Loss function increases in iteration ",iter,"\n"))
+	}
 
 	if ((ops - pops) < eps) break 
 		else {x <- z; pops <- ops; sold <- smid}	
