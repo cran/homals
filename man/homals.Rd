@@ -103,7 +103,8 @@ Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley.
   
   ##Predicting Species in iris dataset (polynomial level constraints for predictors)
   data(iris)
-  res <- homals(iris, sets = list(1:4,5), level = c(rep("polynomial",4),"nominal"), rank = 2, itermax = 1000)
+  res <- homals(iris, sets = list(1:4,5), level = c(rep("polynomial",4),"nominal"), 
+  rank = 2, itermax = 1000)
 
 }
 \keyword{models}

@@ -1,6 +1,6 @@
 `plot.homals` <-
-function(x, plot.dim = c(1,2), plot.type = "jointplot", var.subset, main, type, xlab, ylab, 
-         xlim, ylim, leg.pos = "topright", identify = TRUE, ...)
+function(x, plot.dim = c(1,2), plot.type = "loadplot", var.subset, main, type, xlab, ylab, 
+         xlim, ylim, leg.pos = "topright", identify = FALSE, ...)
 {
 #S3 plot method for objects of class "homals"
 #Produces various 2D-plots
@@ -42,19 +42,18 @@ if (plot.type == "loadplot") {
   if (missing(xlim)) xlim <- c(xlim.min,xlim.max)*1.2
   if (missing(ylim)) ylim <- c(ylim.min,ylim.max)*1.2
 
-  #if (missing(xlim)) xlim <- range(xycoor)*1.2
-  #if (missing(ylim)) ylim <- range(xycoor)*1.2
-  
-  plot(xycoor,type = "p", xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, ...)
-
-  for (i in 1:nvar) lines(rbind(xycoor[i,],c(0,0)))
+   
+  plot(xycoor,type = "p", pch = 20, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main1, cex = 0.5)
+  for (i in 1:nvar) arrows(0, 0, xycoor[i,1],xycoor[i,2], length = 0.08)   #lines(rbind(xycoor[i,],c(0,0)))
   abline(h = 0, col = "lightgray", lty = 2)
   abline(v = 0, col = "lightgray", lty = 2)
   
-  
-  if (identify) identify(xycoor, labels = rownames(xycoor), cex = 0.7) 
-  else text(xycoor, labels = rownames(xycoor), pos = 3, cex = 0.7)
-  #
+  if (identify) {
+    identify(xycoor, labels = rownames(xycoor), cex = 0.7)
+  } else {
+    posvec <- apply(xycoor, 1, sign)[2,] + 2      
+    text(xycoor, labels = rownames(xycoor), pos = posvec, cex = 0.7)
+  }  
 }
 #-------------------------------- end loadplot ---------------------------------
 

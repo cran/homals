@@ -1,4 +1,4 @@
-import("stats", "graphics", "rgl", "scatterplot3d")
+import("stats", "graphics", "rgl", "scatterplot3d", "ape")
 export(homals)
 export(plot3dstatic)
 

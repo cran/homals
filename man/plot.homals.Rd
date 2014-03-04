@@ -8,8 +8,8 @@
 \description{These methods provide various 2D and 3D plots for objects of class \code{"homals"}.
 }
 \usage{
-\method{plot}{homals}(x, plot.dim = c(1, 2), plot.type = "jointplot", var.subset, main, type, xlab, ylab, xlim, ylim, 
-leg.pos = "topright", identify = TRUE, ...)
+\method{plot}{homals}(x, plot.dim = c(1, 2), plot.type = "loadplot", var.subset, main, 
+type, xlab, ylab, xlim, ylim, leg.pos = "topright", identify = FALSE, ...)
 
 \method{plot3d}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, type, xlab, ylab, 
 zlab, col, main, sphere = TRUE, bgpng = "particle.png", ax.grid = TRUE, ...)
