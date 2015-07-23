@@ -101,12 +101,6 @@ transformed (metric) scale on each dimension over the categories of each variabl
 data(hartigan)
 res <- homals(hartigan, ndim = 3)
 plot(res, plot.dim = c(1,3), plot.type = "graphplot")
-
-##3D star plot for indentation and bottom
-plot3d(res, plot.type = "starplot", var.subset = c(2,4))
-
-##Static 3D joint plot for thread and bottom
-plot3dstatic(res, plot.type = "jointplot", var.subset = c(1,4))
 }
 
 \keyword{ hplot }

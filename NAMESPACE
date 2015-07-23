@@ -1,4 +1,6 @@
 import("stats", "graphics", "rgl", "scatterplot3d", "ape")
+importFrom("grDevices", "chull", "dev.off", "rainbow")
+
 export(homals)
 export(plot3dstatic)
 

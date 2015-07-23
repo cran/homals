@@ -1,6 +1,5 @@
-94d55d512a9ba36caa9b7df079bae19f *COPYING
-cafe1990553885696c2550846cdd13c7 *DESCRIPTION
-9c23837053481b8091a2f33879e03941 *NAMESPACE
+3c38c83d2a118d9a6fd7f6a302633c5b *DESCRIPTION
+8a9b4c0f08545b489a70d0ac3f051ae1 *NAMESPACE
 f668952ac3ef2312df8e86ac0198f239 *R/centerX.R
 5d6136edf1d7da4423950eb47e76c6c8 *R/checkPars.R
 f082455b492aac7124e5ba4ec5a11500 *R/computeY.R
@@ -79,12 +78,12 @@ a62818338369e3a58b75518ddaad096d *inst/doc/vignettes/neutrfpres.pdf
 7f62e5910826f601f67063264fd4153b *man/galo.Rd
 289f1b36fc9a82bdfdedf8805aa261fd *man/gubell.Rd
 4f3aa37dc99398bbba2cb2feb00686dd *man/hartigan.Rd
-eb68e1f3aa0633e8a037131b972a66bc *man/homals-package.Rd
+fc75cd1cdea6bc71bb32d79c4d8c558b *man/homals-package.Rd
 755019aa290a076ebdc00c901c76bdc9 *man/homals.Rd
 24cf6ff84b02bf91dfa684a4e427086e *man/house.Rd
 5fe0178aa729bdb231f69cdb0dd0e6a4 *man/mammals.Rd
 d1b7990c4103abe9ab10994c772159a9 *man/neumann.Rd
-9f8d663899b7182d6424abc92b29f20a *man/plot.homals.Rd
+ce2a24df77c1de5ac083b3f55b78deb7 *man/plot.homals.Rd
 9b03d60baa319d86b32602765693c220 *man/predict.homals.Rd
 c8584b5395a23dd69d47014b31803f7f *man/print.homals.Rd
 4b26998f5d90d4a6d8c78ff58255a6bc *man/roskam.Rd

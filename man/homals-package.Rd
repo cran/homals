@@ -25,7 +25,7 @@ Jan de Leeuw, Patrick Mair
 Maintainer: Jan de Leeuw <deleeuw@ucla.edu>
 }
 \references{
-de Leeuw, J., \& Mair, P. (2007). Homogeneity analysis in R: The package homals. Preprint available at \url{http://gifi.stat.ucla.edu/homalsR.pdf}. 
+de Leeuw, J., \& Mair, P. (2007). Homogeneity analysis in R: The package homals.
 
 Gifi, A. (1990). Nonlinear Multivariate Analysis. New York: Wiley. 
 }
