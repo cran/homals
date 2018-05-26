@@ -1,4 +1,4 @@
-3c38c83d2a118d9a6fd7f6a302633c5b *DESCRIPTION
+ff74cdc77c51e737a4bf15db04446eb2 *DESCRIPTION
 8a9b4c0f08545b489a70d0ac3f051ae1 *NAMESPACE
 f668952ac3ef2312df8e86ac0198f239 *R/centerX.R
 5d6136edf1d7da4423950eb47e76c6c8 *R/checkPars.R
@@ -78,7 +78,6 @@ a62818338369e3a58b75518ddaad096d *inst/doc/vignettes/neutrfpres.pdf
 7f62e5910826f601f67063264fd4153b *man/galo.Rd
 289f1b36fc9a82bdfdedf8805aa261fd *man/gubell.Rd
 4f3aa37dc99398bbba2cb2feb00686dd *man/hartigan.Rd
-fc75cd1cdea6bc71bb32d79c4d8c558b *man/homals-package.Rd
 755019aa290a076ebdc00c901c76bdc9 *man/homals.Rd
 24cf6ff84b02bf91dfa684a4e427086e *man/house.Rd
 5fe0178aa729bdb231f69cdb0dd0e6a4 *man/mammals.Rd
