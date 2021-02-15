@@ -2,7 +2,6 @@
 \alias{plot.homals}
 \alias{plot3dstatic}
 \alias{plot3dstatic.homals}
-\alias{plot3d.homals}
 
 \title{Plot methods for homals}
 \description{These methods provide various 2D and 3D plots for objects of class \code{"homals"}.
@@ -10,9 +9,6 @@
 \usage{
 \method{plot}{homals}(x, plot.dim = c(1, 2), plot.type = "loadplot", var.subset, main, 
 type, xlab, ylab, xlim, ylim, leg.pos = "topright", identify = FALSE, ...)
-
-\method{plot3d}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, type, xlab, ylab, 
-zlab, col, main, sphere = TRUE, bgpng = "particle.png", ax.grid = TRUE, ...)
 
 \method{plot3dstatic}{homals}(x, plot.dim = c(1, 2, 3), plot.type = "jointplot", var.subset, main, type, 
 xlab, ylab, zlab, xlim, ylim, zlim, ...)
@@ -33,16 +29,12 @@ xlab, ylab, zlab, xlim, ylim, zlim, ...)
   \item{xlab}{Label of x-axis.}
   \item{ylab}{Label of y-axis.}
   \item{zlab}{Label of z-axis.}
-  \item{col}{Plotting color.}
   \item{xlim}{Limits for x-axis.}
   \item{ylim}{Limits for y-axis.}
   \item{zlim}{Limits for z-axis.}
   \item{leg.pos}{Position of the legend (for \code{"trfplot"} and \code{"spanplot"} only) 
   as provided in \code{\link{legend}}.}
   \item{identify}{If \code{TRUE}, interactive plots are provided.}
-  \item{sphere}{Whether 3D-sphere should be drawn.}
-  \item{bgpng}{Background image in /library/rgl/textures/. If \code{NULL}, blank background.}
-  \item{ax.grid}{If \code{TRUE} grid is drawn.}
   \item{\dots}{Further plot arguments passed: see \code{\link[graphics]{plot}}, \code{\link[rgl]{plot3d}} in package \code{rgl}, and \code{\link[scatterplot3d]{scatterplot3d}} in package \code{scatterplot3d} for detailed information.
 }
 }

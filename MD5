@@ -1,5 +1,5 @@
-ff74cdc77c51e737a4bf15db04446eb2 *DESCRIPTION
-8a9b4c0f08545b489a70d0ac3f051ae1 *NAMESPACE
+7fe8e90d5ec488145dc6a1f3b70bdcec *DESCRIPTION
+955b3ff82a654ba96e3b698caf02fc82 *NAMESPACE
 f668952ac3ef2312df8e86ac0198f239 *R/centerX.R
 5d6136edf1d7da4423950eb47e76c6c8 *R/checkPars.R
 f082455b492aac7124e5ba4ec5a11500 *R/computeY.R
@@ -19,7 +19,6 @@ f121e45c65b724fc694cd1c50145ebbe *R/numericalY.R
 9be8fd524cd225ec95d49cc15e13a4e8 *R/orthogonalPolynomials.R
 85a3addae4ae7d5d240f919bd9d8881b *R/pava.R
 1cfbe78fef065830ce2fb763647c568a *R/plot.homals.R
-ecd10ecd0c3692e725a9fbf727d673bf *R/plot3d.homals.R
 f7e79548d81eeab465ec37699019cf5c *R/plot3dstatic.R
 7d7434584c2a19cc6e0068005a983cf0 *R/plot3dstatic.homals.R
 2afb0d657858c9718ced473a58558760 *R/polynomialY.R
@@ -49,7 +48,7 @@ af6dd074d6e01fba391647e10d31042b *data/mammals.rda
 fa966b4ef74c1b372a63dfc66a99c7d3 *data/senate07.rda
 c8d33ae9f8647761b7e0111c55c50ce3 *data/sleeping.rda
 a501dcf7426feea4458746224e26f262 *data/small.rda
-069e1529830fce15a31c8fb059edc23f *inst/CITATION
+bd53e0f05d8f3c935d8f97d0daf71e56 *inst/CITATION
 63c3183daffe172b9e363b57bbaf3a41 *inst/doc/COPYRIGHTS
 80dd8c23c985e1c9a8b3b4238eba0033 *inst/doc/vignettes/galoLab.pdf
 9abfe54a7012b6950b789a95ae105ed1 *inst/doc/vignettes/galoVor.pdf
@@ -75,14 +74,14 @@ a62818338369e3a58b75518ddaad096d *inst/doc/vignettes/neutrfpres.pdf
 89a9bce3969cd6a66cf1d1bd6c58e8f9 *inst/doc/vignettes/senatespan12.pdf
 7d5300a601c4788b324fcf6027937c72 *inst/doc/vignettes/senatespan13.pdf
 207e0f25f56d038ad662677f23695dc2 *inst/doc/vignettes/senatespan23.pdf
-7f62e5910826f601f67063264fd4153b *man/galo.Rd
+ed60488d689a1f78932409e6594537b4 *man/galo.Rd
 289f1b36fc9a82bdfdedf8805aa261fd *man/gubell.Rd
 4f3aa37dc99398bbba2cb2feb00686dd *man/hartigan.Rd
-755019aa290a076ebdc00c901c76bdc9 *man/homals.Rd
+648ed730e03454253be1933a1482bfbe *man/homals.Rd
 24cf6ff84b02bf91dfa684a4e427086e *man/house.Rd
 5fe0178aa729bdb231f69cdb0dd0e6a4 *man/mammals.Rd
 d1b7990c4103abe9ab10994c772159a9 *man/neumann.Rd
-ce2a24df77c1de5ac083b3f55b78deb7 *man/plot.homals.Rd
+61bac53e5d06ec07be356d4fce881c06 *man/plot.homals.Rd
 9b03d60baa319d86b32602765693c220 *man/predict.homals.Rd
 c8584b5395a23dd69d47014b31803f7f *man/print.homals.Rd
 4b26998f5d90d4a6d8c78ff58255a6bc *man/roskam.Rd

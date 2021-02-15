@@ -1,4 +1,4 @@
-import("stats", "graphics", "rgl", "scatterplot3d", "ape")
+import("stats", "graphics", "scatterplot3d", "ape")
 importFrom("grDevices", "chull", "dev.off", "rainbow")
 
 export(homals)
@@ -7,7 +7,6 @@ export(plot3dstatic)
 S3method(print, homals)
 S3method(summary, homals)
 S3method(plot, homals)
-S3method(plot3d, homals)
 S3method(predict, homals)
 S3method(print, predict.homals)
 S3method(summary, predict.homals)
