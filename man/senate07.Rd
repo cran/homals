@@ -28,9 +28,9 @@ of Members of Congress hosted by 501 (c) (3), or 'grass-roots lobbying' organiza
 was adopted 51-46. Jan. 17, 2007. A no vote is a +.
 
 I2. HR 2. Minimum Wage Increase: Motion to invoke cloture (thus limiting debate) on
-a Baucus (D-MT) substitute amendment to raise the minimum wage to \$7.25 per hour
-over two years and provide \$8.3 billion in small-business tax incentives. The tax
-provisions would be offset with revenue increases, including a \$1 million cap on
+a Baucus (D-MT) substitute amendment to raise the minimum wage to $7.25 per hour
+over two years and provide $8.3 billion in small-business tax incentives. The tax
+provisions would be offset with revenue increases, including a $1 million cap on
 the amount of executive compensation that can be tax-deferred in any year and extend
 certain restrictions on certain sale-in-leaseout deals. (Three-fifths of the total Senate,
 60 votes, is required to invoke cloture.) Motion agreed to 87-10. Jan 30, 2007. A
@@ -57,7 +57,7 @@ Motion rejected 55-42. April 18, 2007. A yes vote is a +.
 
 I6. HR 1495. Water Resources Development
 Act Reauthorization - Climate Change: Kerry (D-MA) amendment to Boxer (D-CA)
-legislation authorizing about \$14 billion for Army Corps of Engineers water resources
+legislation authorizing about $14 billion for Army Corps of Engineers water resources
 development projects, including initiatives for storm protection in Louisiana, fl ood
 control, and ecosystem restoration. The Kerry amendment would require the Army
 Corps of Engineers to include the impact on global climate change in any relevant study
@@ -86,10 +86,10 @@ on a Levin (D-MI) amendment mandating a drawdown and redeployment of U.S.
 forces in Iraq by the end of April 2008, except to protect U.S. personnel, train
 Iraqi security forces, and conduct counter terrorism operations against al Qaeda and
 other international terrorist organizations. Redeployment would begin within 120
-days of enactment. The bill would authorize \$648.3 billion for defense programs in
-fiscal 2008, including \$127.5 billion for the wars in Iraq and Afghanistan. It
-also would authorize \$143.5 billion for operations and maintenance; \$109.9 billion
-for procurement; \$122.9 billion for military personnel, and \$74.7 billion for research,
+days of enactment. The bill would authorize $648.3 billion for defense programs in
+fiscal 2008, including $127.5 billion for the wars in Iraq and Afghanistan. It
+also would authorize $143.5 billion for operations and maintenance; $109.9 billion
+for procurement; $122.9 billion for military personnel, and $74.7 billion for research,
 development, testing and evaluation. Motion rejected 52-47. July 18, 2007. A
 yes vote is a +.
 
@@ -122,9 +122,9 @@ to 60-39. Sept. 2007. A yes vote is a +.
 
 I13. HR 976. SCHIP: Motion to invoke cloture on the Reid (D-NV) motion to
 agree to the House bill reauthorizing the State Children's Health Insurance Program
-(SCHIP) at nearly \$60 billion over five years, expanding the program by \$35
+(SCHIP) at nearly $60 billion over five years, expanding the program by $35
 billion. To offset the cost of the expansion, the bill would increase the tax on cigarettes
-by 61 cents to \$1 per pack and raise taxes on other tobacco products. Motion agreed to
+by 61 cents to $1 per pack and raise taxes on other tobacco products. Motion agreed to
 69-30. Sept. 27, 2007. A yes vote is a +.
 
 I14. HR 3043. Fiscal 2008 Labor - HHS-Education Appropriations - Limiting Abortion Funding: 
@@ -132,10 +132,10 @@ Vitter (R-LA) amendment to Harkin (D-IA) legislation. The Vitter amendment would
 distribution of Title X family planning funds to abortion providers except when a woman
 suffers from a physical disorder, injury, or illness that would risk the life of the
 mother unless an abortion is provided. The amendment would not apply to hospitals.
-Harkin's legislation would appropriate \$605.5 billion in fiscal 2008, including
-\$149.9 billion in discretionary spending, for the departments of Labor, Health and
-Human Services (HHS), and Education, and for related agencies. It would provide \$63
-billion for the Education Department, \$14.9 billion for the Labor Department and \$479.1
+Harkin's legislation would appropriate $605.5 billion in fiscal 2008, including
+$149.9 billion in discretionary spending, for the departments of Labor, Health and
+Human Services (HHS), and Education, and for related agencies. It would provide $63
+billion for the Education Department, $14.9 billion for the Labor Department and $479.1
 billion for HHS. Rejected 41-52. Oct. 18, 2007. A no vote is a +.
 
 I15. Southwick Nomination: Motion to invoke cloture on the nomination of Leslie
@@ -145,11 +145,11 @@ women, Mr. Southwick was unsuited to a lifetime appointment to the federal judic
 Motion agreed to 62-35. Oct. 24, 2007. A no vote is a +.
 
 I16. HR 1495. Water Resources Development - Veto Override: Passage, over President 
-Bush's Nov. 2, 2007, veto, of  a bill authorizing \$23.2 billion for more than
+Bush's Nov. 2, 2007, veto, of  a bill authorizing $23.2 billion for more than
 900 water resource development projects and studies by the Army Corps of Engineers
 for flood control, navigation, beach erosion control, and environmental restoration. The
-bill would require independent peer review for certain projects that exceed \$40 million.
-It would authorize \$3.9 billion for a system of new locks and dams and environmental
+bill would require independent peer review for certain projects that exceed $40 million.
+It would authorize $3.9 billion for a system of new locks and dams and environmental
 restoration for the Upper Mississippi River and Illinois waterway system. It also would
 authorize hurricane recovery activities along the Gulf Coast. (A two-thirds majority of
 those present and voting of both chambers - 62 senators in this instance - is required
@@ -178,33 +178,32 @@ Average Fuel Economy standards of 35 miles per gallon for cars and light trucks,
 and require the production and use of 36 billion gallons of biofuels by 2022. It would
 direct the Energy Department to set new energy efficiency standards. The additional
 amendment would strike a provision requiring utilities to produce 15 percent of
-their electricity from alternative sources by 2020. It also would increase to \$21.8 billion
+their electricity from alternative sources by 2020. It also would increase to $21.8 billion
 a package of tax incentives that would be offset in part by eliminating or reducing
-\$13 billion in subsidies for major oil and gas companies. Motion rejected 59-40. Dec.
+$13 billion in subsidies for major oil and gas companies. Motion rejected 59-40. Dec.
 13, 2007. A yes vote is a +.
 
-I20. HR 2419. Farm Bill Reauthorization Passage of a bill to authorize \$286 billion
+I20. HR 2419. Farm Bill Reauthorization Passage of a bill to authorize $286 billion
 from fiscal 2008 through fiscal 2012 for federal farm, nutrition assistance,
 rural development, and agricultural trade programs. Producers would not be eligible
-if the average of their three-year adjusted gross income is more than \$1 million in
-2009, and more than \$750,000 in 2010 and subsequent years, unless at least two-thirds
+if the average of their three-year adjusted gross income is more than $1 million in
+2009, and more than $750,000 in 2010 and subsequent years, unless at least two-thirds
 of that income is derived from agriculture. The bill also would limit the amount that
-farms could receive during any crop year under specific programs to \$40,000 for
-direct and fi xed payments, and \$60,000 for counter-cyclical and average crop revenue
+farms could receive during any crop year under specific programs to $40,000 for
+direct and fi xed payments, and $60,000 for counter-cyclical and average crop revenue
 payments. It would create a new optional subsidy called the Average Crop Revenue
 program, which would tie payments to state based farm revenue figures. Country-of-origin
 labels for all meat would be required by September 2008. The bill would extend
 the Milk Income Loss Contract program through fiscal 2012. It would increase,
-from \$134 to \$140 per month, the amount households could deduct from gross income
-in determining their level of food stamp benefits. It also would authorize \$1.1
+from $134 to $140 per month, the amount households could deduct from gross income
+in determining their level of food stamp benefits. It also would authorize $1.1
 billion to promote farm-based renewable energy and effi ciency. (Before passage, the
 Senate adopted a Harkin (D-IA) substitute amendment by voice vote.) Passed 79-14.
 Dec. 14, 2007. A yes vote is a +.
 }
 
 \references{
-Ada (2002). 2001 Voting Record: Shattered Promise of Liberal Progress. ADA Today, 57
-(1), 1-17.
+Ada (2002). 2001 Voting Record: Shattered Promise of Liberal Progress. ADA Today, 57(1), 1-17.
 }
 
 

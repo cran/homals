@@ -1,8 +1,8 @@
 Package: homals
 Type: Package
 Title: Gifi Methods for Optimal Scaling
-Version: 1.0-9
-Date: 2021-02-11
+Version: 1.0-10
+Date: 2022-06-09
 Authors@R: c(person("Patrick", "Mair", role = c("aut", "cre"), email = "mair@fas.harvard.edu"), person("Jan", "De Leeuw", role = "aut"))
 Author: Patrick Mair [aut, cre],
   Jan De Leeuw [aut]
@@ -14,6 +14,6 @@ Depends: R (>= 3.0.2)
 LazyData: yes
 ByteCompile: yes
 NeedsCompilation: yes
-Packaged: 2021-02-12 15:25:11 UTC; patrick
+Packaged: 2022-06-09 15:03:47 UTC; patrick
 Repository: CRAN
-Date/Publication: 2021-02-15 11:03:11 UTC
+Date/Publication: 2022-06-10 16:33:34 UTC

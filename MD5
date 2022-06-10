@@ -1,4 +1,4 @@
-7fe8e90d5ec488145dc6a1f3b70bdcec *DESCRIPTION
+b4fe3931b051749b1a2adcd1243c1ace *DESCRIPTION
 955b3ff82a654ba96e3b698caf02fc82 *NAMESPACE
 f668952ac3ef2312df8e86ac0198f239 *R/centerX.R
 5d6136edf1d7da4423950eb47e76c6c8 *R/checkPars.R
@@ -77,15 +77,15 @@ a62818338369e3a58b75518ddaad096d *inst/doc/vignettes/neutrfpres.pdf
 ed60488d689a1f78932409e6594537b4 *man/galo.Rd
 289f1b36fc9a82bdfdedf8805aa261fd *man/gubell.Rd
 4f3aa37dc99398bbba2cb2feb00686dd *man/hartigan.Rd
-648ed730e03454253be1933a1482bfbe *man/homals.Rd
-24cf6ff84b02bf91dfa684a4e427086e *man/house.Rd
+b8e5ec348cdaca22bffb2a4f695e16ca *man/homals.Rd
+750036d1bf0b54c6ad5b24684a263db0 *man/house.Rd
 5fe0178aa729bdb231f69cdb0dd0e6a4 *man/mammals.Rd
 d1b7990c4103abe9ab10994c772159a9 *man/neumann.Rd
 61bac53e5d06ec07be356d4fce881c06 *man/plot.homals.Rd
 9b03d60baa319d86b32602765693c220 *man/predict.homals.Rd
 c8584b5395a23dd69d47014b31803f7f *man/print.homals.Rd
 4b26998f5d90d4a6d8c78ff58255a6bc *man/roskam.Rd
-257aa60d4a6ee2661aaed7340ffb797e *man/senate.Rd
-f30b1ee6f3c1b22ce7c3953b94c033e4 *man/senate07.Rd
+93bca46978cd5e2154f86ed12f5cc154 *man/senate.Rd
+5957d635aa3ef2b92920a0efc4d582c9 *man/senate07.Rd
 82e69e9fd8e86a47e68ebe579fa27cac *man/sleeping.Rd
 73f5b2d45c24ad5f087355c05c4725c0 *man/small.Rd

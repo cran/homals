@@ -37,21 +37,21 @@ aimed at middle- and low-income Americans. Passed 230-198. March 8,
 2001. A no vote is a +.
 
 V4: HR 6. Marriage Tax Reduction. Rangel (D-NY) substitute amendment
-to reduce taxes by \$585.5 billion through 2011. This tax cut would be considerably
+to reduce taxes by $585.5 billion through 2011. This tax cut would be considerably
 less regressive and more equitable than the Republican version.
-The Rangel plan would create a new 12 percent bracket for the first \$20,000
-of a couple's taxable income and \$10,000 for single taxpayers. It also
+The Rangel plan would create a new 12 percent bracket for the first $20,000
+of a couple's taxable income and $10,000 for single taxpayers. It also
 would increase the standard deduction for married couples filing jointly to
 twice that of individuals filing singly. Additionally, the amendment would
 simplify and expand the earned-income tax credit for low-income earners.
 Rejected 196-231. March 29, 2001. A yes vote is a +.
 
 V5: HR 8. Estate Tax Relief. Rangel (D-NY) substitute amendment to increase
-the estate tax exemption from \$675,000 to \$2 million (\$4 million
-for married couples) in 2002, rising to \$2.5 million by 2010. This legislation
+the estate tax exemption from $675,000 to $2 million ($4 million
+for married couples) in 2002, rising to $2.5 million by 2010. This legislation
 serves as an alternative to the drastic Republican abolition of the
 progressive estate tax. The Rangel tax cut would lower federal revenue
-by \$39.2 billion over ten years. The amendment would retain current-law
+by $39.2 billion over ten years. The amendment would retain current-law
 step-up basis provisions, and replace the credit for estate taxes paid to a
 state with a deduction. Rejected 201-227. April 4, 2001. A yes vote is a +.
 
@@ -73,12 +73,12 @@ with funding to attend alternative private schools. Rejected 155-273. May
 23, 2001. A no vote is a +.
 
 V8: HR 1836. Tax Cut Reconciliation Bill. Adoption of the conference report
-on the bill to reduce taxes by \$1.35 trillion through fiscal 2011 via income
+on the bill to reduce taxes by $1.35 trillion through fiscal 2011 via income
 tax rate cuts, relief of the marriage penalty, phaseout of the federal estate
 tax, doubling of the child tax credit, and new incentives for retirement
 savings. A new 10 percent tax rate would be created retroactive to January
-1. The bill would: double the \$500-per-child tax credit by 2010 and make
-it refundable; raise the estate tax exemption to \$1 million in 2002 and
+1. The bill would: double the $500-per-child tax credit by 2010 and make
+it refundable; raise the estate tax exemption to $1 million in 2002 and
 repeal the tax in 2010; increase the standard deduction for married couples
 to double that of singles over five years, beginning in 2005; and increase
 annual contributions limits for Individual Retirement Accounts. The bill's
@@ -90,13 +90,13 @@ House to consider a ban on soft money donations to national political
 parties. This rule was crafted by campaign finance reform foes to disallow
 amendments which fine-tune the bill and, thus, keep reform advocates
 from gathering more votes in support of final passage. Beyond banning
-soft money, the original reform legislation would allow up to \$10,000 in
+soft money, the original reform legislation would allow up to $10,000 in
 soft-money donations to state and local parties for voter registration and
 get-out-the vote activity. The reform bill would prevent issue ads from targeting
 specific candidates within 60 days of a general election or 30 days
 of a primary. Additionally, the legislation would maintain the current individual
-contribution limit of \$1,000 per election for House candidates but
-raise it to \$2,000 for Senate candidates, both of which would be indexed
+contribution limit of $1,000 per election for House candidates but
+raise it to $2,000 for Senate candidates, both of which would be indexed
 for inflation. Rejected 203-228. July 12, 2001. A no vote is a +.
 
 V10: HJ Res 36. Flag Desecration. Passage of the joint resolution proposing
@@ -114,7 +114,6 @@ Motion rejected 195-234. July 19, 2001. A yes vote is a +.
 V12: HJ Res 50. China Normalized Trade Relations. Passage of a joint resolution
 to deny the President's request to provide normal trade relations
 (formerly known as most-favored-nation trade status) for items produced
-LOGIT AND PROBIT PCA 25
 in China from July 2001 through July 2002. Rejected 169-259. July 19,
 2001. A yes vote is a +.
 
@@ -129,7 +128,7 @@ opponents in the White House exerted pressure on Rep. Norwood to abandon
 a stronger bill. The legislation would allow a patient to sue a health
 maintenance organization (HMO) in state court but with federal, not state,
 law governing. An employer could remove cases to federal court. The
-bill would limit non-economic damages to \$1.5 million. Punitive damages
+bill would limit non-economic damages to $1.5 million. Punitive damages
 would be limited to the same amount and only allowed when a decisionmaker
 fails to abide by a grant of benefits by an independent medical reviewer.
 Adopted 218-213. August 2, 1001. A no vote is a +.
@@ -165,12 +164,12 @@ October 12, 2001. A no vote is a +.
 
 V19: HR 3090. Economic Stimulus. Passage of the Republican version of the
 post- September 11 economic stimulus package. The bill would grant businesses
-and individuals \$99.5 billion in federal tax cuts in fiscal 2002, and
-a total of \$159.4 billion in reductions over 10 years. Additionally, the bill
+and individuals $99.5 billion in federal tax cuts in fiscal 2002, and
+a total of $159.4 billion in reductions over 10 years. Additionally, the bill
 would allow more individuals to receive tax rebates for 2000, accelerate
 a reduction of the 27 percent tax bracket to 25 percent, lower the capital
 gains tax rate from 20 percent to 18 percent and eliminate the corporate
-alternative minimum tax. Also, the legislation would provide \$3 billion to
+alternative minimum tax. Also, the legislation would provide $3 billion to
 states for health insurance for the unemployed. Passed 216-214. October
 24, 2001. A no vote is a +.
 
@@ -185,8 +184,7 @@ is a +.
 }
 
 \references{
-Ada (2002). 2001 Voting Record: Shattered Promise of Liberal Progress. ADA Today, 57
-(1), 1-17.
+Ada (2002). 2001 Voting Record: Shattered Promise of Liberal Progress. ADA Today, 57(1), 1-17.
 }
 
 
