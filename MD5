@@ -1,4 +1,4 @@
-b4fe3931b051749b1a2adcd1243c1ace *DESCRIPTION
+ce091fb6a88648427052a8eaa5984c35 *DESCRIPTION
 955b3ff82a654ba96e3b698caf02fc82 *NAMESPACE
 f668952ac3ef2312df8e86ac0198f239 *R/centerX.R
 5d6136edf1d7da4423950eb47e76c6c8 *R/checkPars.R
@@ -48,7 +48,7 @@ af6dd074d6e01fba391647e10d31042b *data/mammals.rda
 fa966b4ef74c1b372a63dfc66a99c7d3 *data/senate07.rda
 c8d33ae9f8647761b7e0111c55c50ce3 *data/sleeping.rda
 a501dcf7426feea4458746224e26f262 *data/small.rda
-bd53e0f05d8f3c935d8f97d0daf71e56 *inst/CITATION
+498b73ff20007c645ea2fedf2687abf6 *inst/CITATION
 63c3183daffe172b9e363b57bbaf3a41 *inst/doc/COPYRIGHTS
 80dd8c23c985e1c9a8b3b4238eba0033 *inst/doc/vignettes/galoLab.pdf
 9abfe54a7012b6950b789a95ae105ed1 *inst/doc/vignettes/galoVor.pdf
